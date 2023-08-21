@@ -4,7 +4,16 @@ const jwt = require("jsonwebtoken");
 
 // This function creates a new author (new user)
 const register = (req, res) => {
-  const { firstName, lastName, age, country, email, password } = req.body;
+  const {
+    firstName,
+    lastName,
+    age,
+    country,
+    email,
+    password,
+    profilePicture,
+    registrationDate,
+  } = req.body;
   const user = new usersModel({
     firstName,
     lastName,
@@ -12,6 +21,8 @@ const register = (req, res) => {
     country,
     email,
     password,
+    profilePicture,
+    registrationDate,
     role: "", // EX: "64bd1d27a4a6a9a2de27d371" add role _id here
   });
 
