@@ -23,7 +23,7 @@ const register = (req, res) => {
     password,
     profilePicture,
     registrationDate,
-    role: "", // EX: "64bd1d27a4a6a9a2de27d371" add role _id here
+    role: "64e399cf6a44d55f6142f6f3", // EX: "64bd1d27a4a6a9a2de27d371" add role _id here
   });
 
   user
@@ -74,7 +74,7 @@ const login = (req, res) => {
         }
         const payload = {
           userId: result._id,
-          author: result.firstName,
+          author: `${result.firstName} ${result.lastName}`,
           role: result.role,
           country: result.country,
         };
