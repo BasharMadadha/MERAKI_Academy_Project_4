@@ -12,7 +12,8 @@ import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Register = () => {
+const Register = ({ setRegister ,setToggel}) => {
+
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
@@ -22,10 +23,10 @@ const Register = () => {
     country: "",
   });
   const [message, setMessage] = useState("");
-  const [err, setErr] = useState(true);
+  //const [errfirstName, setErrfirstName] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-  
+
   const handleMouseDownPassword = (e) => {
     e.preventDefault();
   };
@@ -41,7 +42,8 @@ const Register = () => {
   return (
     <div>
       <TextField
-        error={err ? null : 1}
+        //onClick={()=>setErrfirstName((pr)=>!pr)}
+        //error={errfirstName}
         sx={{ m: 1, width: "25ch" }}
         id="filled-firstName-flexible"
         label="First Name"
@@ -65,6 +67,7 @@ const Register = () => {
         sx={{ m: 1, width: "25ch" }}
         id="filled-age-flexible"
         label="Age"
+        //error={err}
         name="age"
         type="number"
         maxRows={4}
@@ -77,6 +80,7 @@ const Register = () => {
         id="filled-country-flexible"
         label="Country"
         name="country"
+        //error={userData.country.length === 0 ? true : false}
         maxRows={4}
         variant="filled"
         value={userData.country}
@@ -85,6 +89,7 @@ const Register = () => {
       <FormControl sx={{ m: 1, width: "52ch" }} variant="filled">
         <InputLabel>Email</InputLabel>
         <FilledInput
+          //error={userData.email.length === 0 ? true : false}
           value={userData.email}
           name="email"
           onChange={handleChange}
@@ -130,14 +135,14 @@ const Register = () => {
         className="btnC"
         onClick={() => {
           axios
-            .post("http://localhost:5000/users/register", {...userData})
+            .post("http://localhost:5000/users/register", { ...userData })
             .then((result) => {
               setMessage(result.data.message);
-              //navigate("/users/login");
+              setRegister(false);
+              setToggel(false)
             })
             .catch((error) => {
               setMessage(error.response.data.message);
-              setErr(error.response.data.success);
             });
         }}
       >

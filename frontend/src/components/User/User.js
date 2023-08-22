@@ -1,13 +1,13 @@
 import React from "react";
-import "./Home.css";
-import { useState } from "react";
-//import { Link } from "react-router-dom";
+import "./User.css";
+import { useState  } from "react";
 import Register from "./Register/Register";
 import Login from "./Login/Login";
 
-const Home = () => {
-  const [register, setRegister] = useState(true);
+const Home = ({setToken}) => {
+
   const [toggel, setToggel] = useState(true);
+  const [register, setRegister] = useState(true);
 
   return (
     <div className="SignupC">
@@ -37,7 +37,7 @@ const Home = () => {
               sign In
             </button>
           </div>
-          {register ? <Register /> : <Login />}
+          {register ? <Register setRegister={setRegister} setToggel={setToggel}/> : <Login setToken={setToken}/>}
         </div>
       </div>
     </div>

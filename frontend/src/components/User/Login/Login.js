@@ -8,14 +8,17 @@ import InputAdornment from "@mui/material/InputAdornment";
 import InputLabel from "@mui/material/InputLabel";
 import EmailIcon from "@mui/icons-material/Email";
 import axios from "axios";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { UserToken } from "../../../App";
+import { useState ,useContext} from "react";
+import { Link /*,useNavigate*/ } from "react-router-dom";
 
-const Login = ({ setToken }) => {
+const Login = ({setToken}) => {
+  //const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  //const setToken = useContext(UserToken);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -69,8 +72,8 @@ const Login = ({ setToken }) => {
         <Link to="#">Terms & Privacy.</Link>
       </p>
       <br />
-      <button className="btnC" onClick={() => {
-            axios
+      <button className="btnC" onClick={ async () => {
+           await axios
               .post("http://localhost:5000/users/login", {
                 email,
                 password,
