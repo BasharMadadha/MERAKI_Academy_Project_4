@@ -43,10 +43,6 @@ userSchema.pre("save", async function (next) {
 const validatePassword = (password, email) => {
   const emailValidationRules = [
     {
-      test: (email) => email.length === "",
-      errorMessage: "email is required.",
-    },
-    {
       test: (email) => /\.com$/i.test(email) && /[@]/.test(email),
       errorMessage: "Please provide a valid email address",
     },
