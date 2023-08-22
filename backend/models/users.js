@@ -6,8 +6,8 @@ const userSchema = new mongoose.Schema({
   lastName: { type: String },
   age: { type: Number },
   country: { type: String },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  email: { type: String, unique: true },
+  password: { type: String },
   profilePicture: {
     type: String,
     default: "/default-profile.jpg", // Provide a default image URL
@@ -22,6 +22,12 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre("save", async function (next) {
   this.email = this.email.toLowerCase();
+  const existingUser = await mongoose.models.User.findOne({
+    email: this.email,
+  });
+  if (existingUser) {
+    throw new Error("Email is already taken.");
+  }
   if (this.isModified("password")) {
     try {
       validatePassword(this.password, this.email);
@@ -35,13 +41,26 @@ userSchema.pre("save", async function (next) {
 });
 
 const validatePassword = (password, email) => {
-  const validationRules = [
+  const emailValidationRules = [
+    {
+      test: (email) => email.length === "",
+      errorMessage: "email is required.",
+    },
     {
       test: (email) => /\.com$/i.test(email) && /[@]/.test(email),
       errorMessage: "Please provide a valid email address",
     },
+  ];
+
+  emailValidationRules.forEach((rule) => {
+    if (!rule.test(email)) {
+      throw new Error(rule.errorMessage);
+    }
+  });
+
+  const validationRules = [
     {
-      test: (password) => password.length >= 8,
+      test: (password) => password.length === "" || password.length >= 8,
       errorMessage: "Password must have a length of more than 8 characters.",
     },
     {
@@ -55,7 +74,7 @@ const validatePassword = (password, email) => {
   ];
 
   validationRules.forEach((rule) => {
-    if (!rule.test(password) && !rule.test(email)) {
+    if (!rule.test(password)) {
       throw new Error(rule.errorMessage);
     }
   });

@@ -42,11 +42,18 @@ const register = (req, res) => {
           message: `The email already exists`,
         });
       }
-      res.status(500).json({
-        success: false,
-        message: `Server Error`,
-        err: err.message,
-      });
+      if (err) {
+        return res.status(409).json({
+          success: false,
+          message: err.message,
+        });
+      } else {
+        res.status(500).json({
+          success: false,
+          message: `Server Error`,
+          err: err.message,
+        });
+      }
     });
 };
 
