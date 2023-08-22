@@ -1,0 +1,67 @@
+.SignupC {
+  background-image: url(../../image/background.jpg);
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.SignupM {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Signup {
+  background:rgba(255, 255, 255, 0.438);
+  width: 450px;
+  height: 600px;
+  border-radius: 30px;
+}
+
+.textD {
+  align-self: center;
+  font-size: 40px;
+  font-family: serif;
+  font-weight: bold;
+}
+
+.toggel {
+  width: 220px;
+  margin: 35px auto;
+  position: relative;
+  box-shadow: 0 0 20px 9px #ff61241f;
+  border-radius: 30px;
+}
+
+.btnT {
+  padding: 10px 30px;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  outline: none;
+  position: relative;
+}
+
+#btn {
+  top: 0;
+  position: absolute;
+  width: 110px;
+  height: 100%;
+  background: #f3c693;
+  border-radius: 30px;
+  transition: 0.5s;
+}
+
+.btnC {
+  width: 85%;
+  padding: 10px 30px;
+  cursor: pointer;
+  display: block;
+  margin: auto;
+  background: #f3c693;
+  border: 0;
+  outline: none;
+  border-radius: 30px;
+}
