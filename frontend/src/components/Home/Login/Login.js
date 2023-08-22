@@ -86,7 +86,7 @@ const Login = ({ setToken }) => {
               });
           }}>Continue</button>
           <br/>
-          <h2>{message}</h2>
+          <h2 style={{color:'#e57373'}}>{message}</h2>
     </div>
   );
 };

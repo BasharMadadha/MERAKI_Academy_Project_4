@@ -13,73 +13,81 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Register = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [age, setAge] = useState("");
-  const [country, setCountry] = useState("");
+  const [userData, setUserData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    age: "",
+    password: "",
+    country: "",
+  });
   const [message, setMessage] = useState("");
+  const [err, setErr] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
+  
+  const handleMouseDownPassword = (e) => {
+    e.preventDefault();
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserData({
+      ...userData,
+      [name]: value,
+    });
   };
 
   return (
     <div>
       <TextField
+        error={err ? null : 1}
         sx={{ m: 1, width: "25ch" }}
         id="filled-firstName-flexible"
         label="First Name"
+        name="firstName"
         maxRows={4}
         variant="filled"
-        value={firstName}
-        onChange={(e) => {
-          setFirstName(e.target.value);
-        }}
+        value={userData.firstName}
+        onChange={handleChange}
       />
       <TextField
         sx={{ m: 1, width: "25ch" }}
         id="filled-lastName-flexible"
         label="Last Name"
+        name="lastName"
         maxRows={4}
         variant="filled"
-        value={lastName}
-        onChange={(e) => {
-          setLastName(e.target.value);
-        }}
+        value={userData.lastName}
+        onChange={handleChange}
       />
       <TextField
         sx={{ m: 1, width: "25ch" }}
         id="filled-age-flexible"
         label="Age"
+        name="age"
         type="number"
         maxRows={4}
         variant="filled"
-        value={age}
-        onChange={(e) => {
-          setAge(e.target.value);
-        }}
+        value={userData.age}
+        onChange={handleChange}
       />
       <TextField
         sx={{ m: 1, width: "25ch" }}
         id="filled-country-flexible"
         label="Country"
+        name="country"
         maxRows={4}
         variant="filled"
-        value={country}
-        onChange={(e) => {
-          setCountry(e.target.value);
-        }}
+        value={userData.country}
+        onChange={handleChange}
       />
       <FormControl sx={{ m: 1, width: "52ch" }} variant="filled">
         <InputLabel>Email</InputLabel>
         <FilledInput
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
+          value={userData.email}
+          name="email"
+          onChange={handleChange}
           type={"email"}
           endAdornment={
             <InputAdornment
@@ -95,10 +103,9 @@ const Register = () => {
       <FormControl sx={{ m: 1, width: "52ch" }} variant="filled">
         <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
         <FilledInput
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
+          value={userData.password}
+          name="password"
+          onChange={handleChange}
           id="filled-adornment-password"
           type={showPassword ? "text" : "password"}
           endAdornment={
@@ -123,27 +130,21 @@ const Register = () => {
         className="btnC"
         onClick={() => {
           axios
-            .post("http://localhost:5000/users/register", {
-              firstName,
-              lastName,
-              email,
-              password,
-              age,
-              country,
-            })
+            .post("http://localhost:5000/users/register", {...userData})
             .then((result) => {
               setMessage(result.data.message);
               //navigate("/users/login");
             })
             .catch((error) => {
               setMessage(error.response.data.message);
+              setErr(error.response.data.success);
             });
         }}
       >
         Continue
       </button>
       <br />
-      <h2 style={{color:'#e57373'}}>{message}</h2>
+      <h2 style={{ color: "#e57373" }}>{message}</h2>
     </div>
   );
 };
