@@ -23,7 +23,7 @@ const register = (req, res) => {
     password,
     profilePicture,
     registrationDate,
-    role: "64e399cf6a44d55f6142f6f3", // EX: "64bd1d27a4a6a9a2de27d371" add role _id here
+    role: "64e6796b95b2419d21bfc3bf", // EX: "64bd1d27a4a6a9a2de27d371" add role _id here
   });
 
   user
@@ -88,6 +88,7 @@ const login = (req, res) => {
           success: true,
           message: `Valid login credentials`,
           token: token,
+          data: result,
         });
       } catch (error) {
         throw new Error(error.message);

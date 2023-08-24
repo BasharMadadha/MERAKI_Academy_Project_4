@@ -14,7 +14,7 @@ const NavBar = () => {
   const { user, setToken } = useContext(userData);
   const navigate = useNavigate();
   return (
-    <div className="navbar">
+    <div className="navbar"  >
       <div className="left">
         <Link to="#" style={{ textDecoration: "none" }}>
           <span className="logo">Logo</span>

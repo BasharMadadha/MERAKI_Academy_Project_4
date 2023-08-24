@@ -15,6 +15,34 @@ const AddPost = () => {
     headers: { Authorization: `Bearer ${token}` },
   };
 
+  const processFile = async (e) => {
+    const CLOUD_NAME = "dv7ygzpv8";
+    const UNSIGNED_UPLOAD_PRESET = "nxtfdphq";
+    const FETCH_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`;
+  
+    const files = document.querySelector("[type=file]").files;
+  
+    for (let i = 0; i < files.length; i++) {
+      let file = files[i];
+      const DATA = new FormData();
+  
+      DATA.append("file", file);
+      DATA.append("cloud_name", CLOUD_NAME);
+      DATA.append("upload_preset", UNSIGNED_UPLOAD_PRESET);
+  
+      let res = await fetch(FETCH_URL, {
+        method: "post",
+        mode: "cors",
+        body: DATA,
+      });
+  
+      let json = await res.json();
+      setPic({ ...pic, user_image: json.url });
+   
+     //setIsLoading(false);
+    }
+  };
+
   return (
     <div className="add-post">
       <div className="containerA">
@@ -31,22 +59,20 @@ const AddPost = () => {
             }}
           />
           <div className="itemPh">
-            {/* <input
+            <input
               type="file"
               name="file"
               onChange={(e) => {
-                setPic(e.target.files[0]);
+                processFile()
+                //setPic(e.target.files[0]);
               }}
-            /> */}
-            <img src={Gallery} alt="" onClick={() => {}} />
+            />
+            <img src={Gallery} alt="" onClick={() => {}} ></img>
             <span>Add image</span>
           </div>
           <button
             className="learn-more"
             onClick={() => {
-              // if (description.length === 0) {
-              //   return alert("please ADD");
-              // }
               axios
                 .post(
                   "http://localhost:5000/articles/",
@@ -93,3 +119,5 @@ const AddPost = () => {
 };
 
 export default AddPost;
+
+

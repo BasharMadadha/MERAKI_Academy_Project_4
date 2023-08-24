@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String },
   profilePicture: {
     type: String,
-    default: "/default-profile.jpg", // Provide a default image URL
+    default: "https://www.pngitem.com/pimgs/m/504-5040528_empty-profile-picture-png-transparent-png.png", // Provide a default image URL
   },
   registrationDate: {
     type: Date,

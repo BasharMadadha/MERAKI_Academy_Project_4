@@ -90,12 +90,12 @@ const getArticleById = (req, res) => {
 
 // This function creates new article
 const createNewArticle = (req, res) => {
-  const { title, description } = req.body;
+  const { description ,pic } = req.body;
   const author = req.token.userId;
   const userName = req.token.author
   const newArticle = new articlesModel({
-    title,
     description,
+    pic,
     author,
     userName
   });
