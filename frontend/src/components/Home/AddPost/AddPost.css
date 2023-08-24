@@ -32,7 +32,7 @@
 }
 
 .tt {
-  width: 70%;
+  width: 90%;
   font-size: 17px;
   padding: 22px;
   margin: 10px 0 5px 10px;
@@ -43,8 +43,9 @@
 }
 
 button.learn-more {
-  position: relative;
-  top: 70px;
+  position: absolute;
+  right: 0;
+  top: 85px;
   display: inline-block;
   cursor: pointer;
   outline: none;
@@ -139,4 +140,11 @@ button:hover .button-text {
 
 .itemPh span {
   margin: 10px;
+}
+
+.picU {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  object-fit: cover;
 }

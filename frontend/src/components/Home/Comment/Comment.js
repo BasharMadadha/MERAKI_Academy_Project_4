@@ -3,16 +3,15 @@ import axios from "axios";
 import { userData } from "../../../App";
 import { useState, useContext } from "react";
 import "./Comment.css";
+import Swal from "sweetalert2";
 
 const Comment = ({ article, getArticles, setError }) => {
   const { token, user } = useContext(userData);
-  const [comment, setComment] = useState("");
 
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
-
-  const createComment = async (id) => {
+  const createComment = async (id, comment) => {
     await axios
       .post(
         `http://localhost:5000/articles/${id}/comments/`,
@@ -24,6 +23,26 @@ const Comment = ({ article, getArticles, setError }) => {
       })
       .catch((error) => {
         setError(error);
+      });
+  };
+
+  const handleComment = async () => {
+    await Swal.fire({
+      input: "textarea",
+      inputLabel: ` What's on your mind ${user.firstName} ...`,
+      inputPlaceholder: "Type in your mind here...",
+      inputAttributes: {
+        "aria-label": "Type your message here",
+      },
+      showCancelButton: true,
+    })
+      .then((result) => {
+        if (result.value) {
+          createComment(article._id, result.value);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -45,22 +64,10 @@ const Comment = ({ article, getArticles, setError }) => {
           </div>
         );
       })}
-      <textarea
-        placeholder="Comment..."
-        value={comment}
-        onChange={(e) => setComment(e.target.value)}
-      />
-      <button
-        className="btnAdd"
-        onClick={() => {
-          if (comment.length === 0) {
-            return alert("please ADD");
-          }
-          createComment(article._id);
-          setComment("");
-        }}
-      >
-        Add Comment
+      <button className="Btnx" onClick={handleComment}>
+        <div className="signx">+</div>
+
+        <div className="textx">Create</div>
       </button>
     </div>
   );

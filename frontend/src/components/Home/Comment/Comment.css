@@ -1,0 +1,81 @@
+.comment {
+  background-color: rgb(219, 217, 217);
+  margin-top: 7px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.detailsC {
+  display: flex;
+  flex-direction: column;
+}
+.nameC {
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.dateC {
+  font-size: 12px;
+}
+
+.Btnx {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 35px;
+  height: 35px;
+  border-radius: calc(45px / 2);
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  overflow: hidden;
+  right: 20px;
+  bottom: 0;
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+  background: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb);
+}
+
+/* plus sign */
+.signx {
+  width: 100%;
+  font-size: 2.2em;
+  color: white;
+  transition-duration: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* text */
+.textx {
+  position: absolute;
+  right: 0%;
+  width: 0%;
+  opacity: 0;
+  color: white;
+  font-size: 1.4em;
+  font-weight: 500;
+  transition-duration: 0.3s;
+}
+/* hover effect on button width */
+.Btnx:hover {
+  width: 125px;
+  transition-duration: 0.3s;
+}
+
+.Btnx:hover .signx {
+  width: 30%;
+  transition-duration: 0.3s;
+  padding-left: 15px;
+}
+/* hover effect button's text */
+.Btnx:hover .textx {
+  opacity: 1;
+  width: 70%;
+  transition-duration: 0.3s;
+  padding-right: 15px;
+}
+/* button click effect*/
+.Btnx:active {
+  transform: translate(2px, 2px);
+}

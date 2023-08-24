@@ -21,7 +21,6 @@ const Posts = () => {
   const [articles, setArticles] = useState([]);
   const [articlesId, setArticlesId] = useState("");
   const [userId, setUserId] = useState("");
-  const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
 
   const [commentUP, setCommentUP] = useState(false);
@@ -49,7 +48,7 @@ const Posts = () => {
     await axios
       .get(`http://localhost:5000/articles/`, config)
       .then((res) => {
-        setArticles(res.data.articles);
+        setArticles(res.data.articles)
         setUserId(res.data.userId);
       })
       .catch((error) => {
@@ -68,7 +67,7 @@ const Posts = () => {
       });
   };
 
-  const UpdateArticle = async (id) => {
+  const UpdateArticle = async (id, description) => {
     await axios
       .put(`http://localhost:5000/articles/${id}`, {
         description,
@@ -109,7 +108,11 @@ const Posts = () => {
                 </div>
                 <div className="content">
                   <p>{article.description}</p>
-                  <img src={article.pic} alt="" />
+                  <img
+                    src={article.pic}
+                    alt=""
+                    style={{ borderRadius: "10px" }}
+                  />
                 </div>
                 <div className="itemP">
                   <FavoriteOutlinedIcon />
@@ -120,7 +123,7 @@ const Posts = () => {
                       setArticlesId(article._id);
                     }}
                   />
-                  12 Comments
+                  {article.comments.length} Comments
                   <ShareOutlinedIcon />
                   Share
                 </div>
@@ -179,8 +182,8 @@ const Posts = () => {
                                 })}
                               </>;
                             } else if (option === "Update") {
-                              (async () => {
-                                const { value: text } = await Swal.fire({
+                              (() => {
+                                Swal.fire({
                                   input: "textarea",
                                   inputLabel: ` What's on your mind ${user.firstName} ...`,
                                   inputPlaceholder: "Type in your mind here...",
@@ -188,13 +191,9 @@ const Posts = () => {
                                     "aria-label": "Type your message here",
                                   },
                                   showCancelButton: true,
+                                }).then((result) => {
+                                  UpdateArticle(article._id, result.value);
                                 });
-                                setDescription(text);
-                                if (text) {
-                                  Swal.fire(text);
-                                  console.log(description);
-                                  UpdateArticle(article._id);
-                                }
                               })();
                             }
                           }}
@@ -215,4 +214,4 @@ const Posts = () => {
 };
 
 export default Posts;
-//DeleteArticle(article._id)}
+

@@ -118,6 +118,7 @@ const AddPost = () => {
             </span>
             <span className="button-text">Share</span>
           </button>
+          {pic.length > 0 && <img src={pic} alt="" className="picU" />}
         </div>
       </div>
     </div>
