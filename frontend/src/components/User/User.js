@@ -1,10 +1,9 @@
-import React from "react";
 import "./User.css";
 import { useState  } from "react";
 import Register from "./Register/Register";
 import Login from "./Login/Login";
 
-const Home = ({setToken}) => {
+const User = () => {
 
   const [toggel, setToggel] = useState(true);
   const [register, setRegister] = useState(true);
@@ -37,11 +36,11 @@ const Home = ({setToken}) => {
               sign In
             </button>
           </div>
-          {register ? <Register setRegister={setRegister} setToggel={setToggel}/> : <Login setToken={setToken}/>}
+          {register ? <Register setRegister={setRegister} setToggel={setToggel}/> : <Login />}
         </div>
       </div>
     </div>
   );
 };
 
-export default Home;
+export default User;

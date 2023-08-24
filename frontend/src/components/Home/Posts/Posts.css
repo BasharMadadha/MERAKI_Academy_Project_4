@@ -1,0 +1,95 @@
+.post {
+  -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+  -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+  box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+  border-radius: 20px;
+  background-color: rgb(243, 243, 243);
+  margin: 20px;
+}
+.containerP {
+  padding: 20px;
+}
+.userP {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.userInfoP {
+  display: flex;
+  gap: 20px;
+}
+.userInfoP img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+}
+.name {
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.date {
+  font-size: 12px;
+}
+
+.content {
+  margin: 20px 0px;
+}
+.content img {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  margin-top: 20px;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.itemP {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.postA {
+  width: 100%;
+  background: #f1f1f1;
+  margin: 20px 0 0 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.comment{
+  background-color: rgb(219, 217, 217);
+  margin-top: 5px;
+  padding: 20px;
+}
+
+.detailsC {
+  display: flex;
+  flex-direction: column;
+}
+.nameC {
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.dateC {
+  font-size: 12px;
+}
+
+.menuP{
+  position: absolute;
+  right: 0;
+}

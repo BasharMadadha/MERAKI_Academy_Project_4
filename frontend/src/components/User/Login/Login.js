@@ -1,4 +1,3 @@
-import React from "react";
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -7,22 +6,29 @@ import FilledInput from "@mui/material/FilledInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import InputLabel from "@mui/material/InputLabel";
 import EmailIcon from "@mui/icons-material/Email";
+//import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
-import { UserToken } from "../../../App";
-import { useState ,useContext} from "react";
-import { Link /*,useNavigate*/ } from "react-router-dom";
+import { userData } from "../../../App";
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-const Login = ({setToken}) => {
-  //const navigate = useNavigate();
+const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  //const setToken = useContext(UserToken);
+  const { setToken, setUser } = useContext(userData);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  // const responseGoogle = (response) => {
+  //   console.log(response); // This contains user information including the access token
+  //   // You can fetch user details using the response.accessToken
+  // };
+
   return (
     <div>
       <FormControl sx={{ m: 1, width: "52ch" }} variant="filled">
@@ -66,32 +72,48 @@ const Login = ({setToken}) => {
           }
         />
       </FormControl>
-      <br/>
+      <br />
       <p>
         By creating an account you agree to our{" "}
         <Link to="#">Terms & Privacy.</Link>
       </p>
       <br />
-      <button className="btnC" onClick={ async () => {
-           await axios
-              .post("http://localhost:5000/users/login", {
-                email,
-                password,
-              })
-              .then((result) => {
-                setMessage(result.data.message);
-                setToken(result.data.token)
-                localStorage.setItem("token", result.data.token);
-                //navigate("/Dashboard")
-              })
-              .catch((error) => {
-                setMessage(error.response.data.message);
-              });
-          }}>Continue</button>
-          <br/>
-          <h2 style={{color:'#e57373'}}>{message}</h2>
+      <button
+        className="btnC"
+        onClick={async () => {
+          await axios
+            .post("http://localhost:5000/users/login", {
+              email,
+              password,
+            })
+            .then((result) => {
+              setMessage(result.data.message);
+              setToken(result.data.token);
+              setUser(result.data.data)
+              localStorage.setItem("uDATA", JSON.stringify(result.data.data));
+              localStorage.setItem("token", result.data.token);
+              navigate("/Home");
+            })
+            .catch((error) => {
+              setMessage(error.response.data.message);
+            });
+        }}
+      >
+        Continue
+      </button>
+      <br />
+      <h2 style={{ color: "#e57373" }}>{message}</h2>
+      {/* <GoogleLogin
+        clientId="29384127815-7j7snlmoog4ir7nqe84ec7o4tj64j536.apps.googleusercontent.com"
+        buttonText="Sign in with Google"
+        onSuccess={responseGoogle}
+        onFailure={responseGoogle}
+        cookiePolicy={"single_host_origin"}
+      /> */}
     </div>
   );
 };
 
 export default Login;
+
+//29384127815-7j7snlmoog4ir7nqe84ec7o4tj64j536.apps.googleusercontent.com
