@@ -10,37 +10,33 @@ const AddPost = () => {
   const [description, setDescription] = useState("");
   const [pic, setPic] = useState("");
   const { token, user } = useContext(userData);
-
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
 
-  const processFile = async (e) => {
+  const processFile = async (files) => {
     const CLOUD_NAME = "dv7ygzpv8";
-    const UNSIGNED_UPLOAD_PRESET = "nxtfdphq";
-    const FETCH_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`;
-  
-    const files = document.querySelector("[type=file]").files;
-  
-    for (let i = 0; i < files.length; i++) {
-      let file = files[i];
-      const DATA = new FormData();
-  
-      DATA.append("file", file);
-      DATA.append("cloud_name", CLOUD_NAME);
-      DATA.append("upload_preset", UNSIGNED_UPLOAD_PRESET);
-  
-      let res = await fetch(FETCH_URL, {
-        method: "post",
-        mode: "cors",
-        body: DATA,
+    const UNSIGNED_UPLOAD_PRESET = "dpybqbgc";
+    const file = files;
+    const FETCH_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+
+    const DATA = new FormData();
+
+    DATA.append("file", file);
+    DATA.append("cloud_name", CLOUD_NAME);
+    DATA.append("upload_preset", UNSIGNED_UPLOAD_PRESET);
+    await fetch(FETCH_URL, {
+      method: "post",
+      mode: "cors",
+      body: DATA,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setPic(data.url);
+      })
+      .catch((err) => {
+        console.log(err);
       });
-  
-      let json = await res.json();
-      setPic({ ...pic, user_image: json.url });
-   
-     //setIsLoading(false);
-    }
   };
 
   return (
@@ -59,15 +55,25 @@ const AddPost = () => {
             }}
           />
           <div className="itemPh">
-            <input
-              type="file"
-              name="file"
-              onChange={(e) => {
-                processFile()
-                //setPic(e.target.files[0]);
+            <img
+              src={Gallery}
+              alt=""
+              onClick={() => {
+                (async () => {
+                  const { value: file } = await Swal.fire({
+                    title: "Select image",
+                    input: "file",
+                    inputAttributes: {
+                      accept: "image/*",
+                      "aria-label": "Upload your profile picture",
+                    },
+                  });
+                  if (file) {
+                    processFile(file);
+                  }
+                })();
               }}
-            />
-            <img src={Gallery} alt="" onClick={() => {}} ></img>
+            ></img>
             <span>Add image</span>
           </div>
           <button
@@ -119,5 +125,3 @@ const AddPost = () => {
 };
 
 export default AddPost;
-
-
