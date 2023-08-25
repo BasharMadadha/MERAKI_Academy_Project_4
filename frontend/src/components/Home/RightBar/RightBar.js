@@ -1,204 +1,81 @@
 import "./RightBar.css";
-//import { useContext } from "react";
-//import { userData } from "../../../App";
+import { useContext, useEffect, useState } from "react";
+import { userData } from "../../../App";
+import axios from "axios";
 
 const RightBar = () => {
-  //const { user } = useContext(userData);
+  const [users, setUsers] = useState([]);
+  const { token } = useContext(userData);
+
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  const getUsers = async () => {
+    await axios
+      .get(`http://localhost:5000/users/`, config)
+      .then((res) => {
+        //console.log(res.data.users);
+        setUsers(res.data.users);
+        //setUserId(res.data.userId);
+      })
+      .catch((error) => {
+        //setError(error);
+      });
+  };
+
   return (
     <div className="rightBar">
       <div className="containerR">
         <div className="itemR">
           <span>Suggestions For You</span>
-          <div className="userR">
-            <div className="userInfo">
-              <img
-                src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-              <span>Jane Doe</span>
-            </div>
-            <div className="buttons">
-              <button>follow</button>
-              <button>dismiss</button>
-            </div>
-          </div>
-          <div className="userR">
-            <div className="userInfo">
-              <img
-                src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-              <span>Jane Doe</span>
-            </div>
-            <div className="buttons">
-              <button>follow</button>
-              <button>dismiss</button>
-            </div>
-          </div>
+          {users.map((user) => {
+            return (
+              <div key={user._id} className="userR">
+                <div className="userInfo">
+                  <img src={user.profilePicture} alt="" />
+                  <span>{`${user.firstName} ${user.lastName}`}</span>
+                </div>
+                <div className="buttons">
+                  <button>follow</button>
+                  <button>dismiss</button>
+                </div>
+              </div>
+            );
+          })}
         </div>
         <div className="itemR">
           <span>Latest Activities</span>
-          <div className="userR">
-            <div className="userInfo">
-              <img
-                src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-              <p>
-                <span>Jane Doe</span> changed their cover picture
-              </p>
-            </div>
-            <span>1 min ago</span>
-          </div>
-          <div className="userR">
-            <div className="userInfo">
-              <img
-                src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-              <p>
-                <span>Jane Doe</span> changed their cover picture
-              </p>
-            </div>
-            <span>1 min ago</span>
-          </div>
-          <div className="userR">
-            <div className="userInfo">
-              <img
-                src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-              <p>
-                <span>Jane Doe</span> changed their cover picture
-              </p>
-            </div>
-            <span>1 min ago</span>
-          </div>
-          <div className="userR">
-            <div className="userInfo">
-              <img
-                src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-              <p>
-                <span>Jane Doe</span> changed their cover picture
-              </p>
-            </div>
-            <span>1 min ago</span>
-          </div>
+          {users.map((user) => {
+            return (
+              <div key={user._id} className="userR">
+                <div className="userInfo">
+                  <img src={user.profilePicture} alt="" />
+                  <span>{`${user.firstName} ${user.lastName}`}</span>
+                  <p>changed their cover picture</p>
+                </div>
+                <span>1 min ago</span>
+              </div>
+            );
+          })}
         </div>
         <div className="itemR">
           <span>Online Friends</span>
-          <div className="userR">
-            <div className="userInfo">
-              <img
-                src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-              <div className="online" />
-              <span>Jane Doe</span>
-            </div>
-          </div>
-          <div className="userR">
-            <div className="userInfo">
-              <img
-                src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-              <div className="online" />
-              <span>Jane Doe</span>
-            </div>
-          </div>
-          <div className="userR">
-            <div className="userInfo">
-              <img
-                src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-              <div className="online" />
-              <span>Jane Doe</span>
-            </div>
-          </div>
-          <div className="userR">
-            <div className="userInfo">
-              <img
-                src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-              <div className="online" />
-              <span>Jane Doe</span>
-            </div>
-          </div>
-          <div className="userR">
-            <div className="userInfo">
-              <img
-                src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-              <div className="online" />
-              <span>Jane Doe</span>
-            </div>
-          </div>
-          <div className="userR">
-            <div className="userInfo">
-              <img
-                src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-              <div className="online" />
-              <span>Jane Doe</span>
-            </div>
-          </div>
-          <div className="userR">
-            <div className="userInfo">
-              <img
-                src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-              <div className="online" />
-              <span>Jane Doe</span>
-            </div>
-          </div>
-          <div className="userR">
-            <div className="userInfo">
-              <img
-                src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-              <div className="online" />
-              <span>Jane Doe</span>
-            </div>
-          </div>
-          <div className="userR">
-            <div className="userInfo">
-              <img
-                src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-              <div className="online" />
-              <span>Jane Doe</span>
-            </div>
-          </div>
-          <div className="userR">
-            <div className="userInfo">
-              <img
-                src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-              <div className="online" />
-              <span>Jane Doe</span>
-            </div>
-          </div>
-          <div className="userR">
-            <div className="userInfo">
-              <img
-                src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-              <div className="online" />
-              <span>Jane Doe</span>
-            </div>
-          </div>
+          {users.map((user) => {
+            return (
+              <div key={user._id} className="userR">
+                <div className="userInfo">
+                  <img src={user.profilePicture} alt="" />
+                  <div className="online" />
+                  <span>{`${user.firstName} ${user.lastName}`}</span>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

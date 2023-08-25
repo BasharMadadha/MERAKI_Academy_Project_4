@@ -1,0 +1,299 @@
+.profile {
+  background-color: themed("bgSoft");
+}
+.images {
+  width: 100%;
+  height: 300px;
+  position: relative;
+}
+.cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.imgPIC {
+  position: relative;
+  width: 70px;
+  height:70px;
+}
+.profilePic {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 200px;
+}
+
+.profileContainer {
+  padding: 20px 70px;
+}
+.uInfo {
+  height: 180px;
+  -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+  -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+  box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+  border-radius: 20px;
+  background-color: themed("bg");
+  color: themed("textColor");
+  padding: 50px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.left {
+  flex: 1;
+  display: flex;
+  gap: 10px;
+}
+.left a {
+  color: themed("textColorSoft");
+}
+
+.center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.center span {
+  font-size: 30px;
+  font-weight: bold;
+  width: max-content;
+  margin-top: 10px;
+}
+
+.info {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.itemF {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: themed("textColorSoft");
+}
+.itemF span {
+  font-size: 12px;
+}
+
+.center button {
+  border: none;
+  background-color: #5271ff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.edit-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgb(20, 20, 20, 0.548);
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  transition-duration: 0.3s;
+  overflow: hidden;
+  position: absolute;
+  right: 38%;
+  top:78%;
+  text-decoration: none !important;
+}
+
+.edit-svgIcon {
+  width: 17px;
+  transition-duration: 0.3s;
+}
+
+.edit-svgIcon path {
+  fill: white;
+}
+
+.edit-button:hover {
+  width: 120px;
+  border-radius: 50px;
+  transition-duration: 0.3s;
+  background-color: rgb(255, 69, 69);
+  align-items: center;
+}
+
+.edit-button:hover .edit-svgIcon {
+  width: 20px;
+  transition-duration: 0.3s;
+  transform: translateY(60%);
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+
+.edit-button::before {
+  display: none;
+  content: "Edit";
+  color: white;
+  transition-duration: 0.3s;
+  font-size: 2px;
+}
+
+.edit-button:hover::before {
+  display: block;
+  padding-right: 10px;
+  font-size: 13px;
+  opacity: 1;
+  transform: translateY(0px);
+  transition-duration: 0.3s;
+}
+
+.edit-button1 {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgb(20, 20, 20, 0.548);
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  transition-duration: 0.3s;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-decoration: none !important;
+}
+
+.edit-svgIcon1 {
+  width: 17px;
+  transition-duration: 0.3s;
+}
+
+.edit-svgIcon1 path {
+  fill: white;
+}
+
+.edit-button1:hover {
+  width: 120px;
+  border-radius: 50px;
+  transition-duration: 0.3s;
+  background-color: rgb(255, 69, 69);
+  align-items: center;
+}
+
+.edit-button1:hover .edit-svgIcon1 {
+  width: 20px;
+  transition-duration: 0.3s;
+  transform: translateY(60%);
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+
+.edit-button1::before {
+  display: none;
+  content: "Edit";
+  color: white;
+  transition-duration: 0.3s;
+  font-size: 2px;
+}
+
+.edit-button1:hover::before {
+  display: block;
+  padding-right: 10px;
+  font-size: 13px;
+  opacity: 1;
+  transform: translateY(0px);
+  transition-duration: 0.3s;
+}
+
+.edit-button2 {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(20, 20, 20, 0.548);
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  transition-duration: 0.3s;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+  text-decoration: none !important;
+}
+
+.edit-svgIcon2 {
+  width: 17px;
+  transition-duration: 0.3s;
+}
+
+.edit-svgIcon2 path {
+  fill: white;
+}
+
+.edit-button2:hover {
+  width: 120px;
+  border-radius: 50px;
+  transition-duration: 0.3s;
+  background-color: rgb(255, 69, 69);
+  align-items: center;
+}
+
+.edit-button2:hover .edit-svgIcon2 {
+  width: 20px;
+  transition-duration: 0.3s;
+  transform: translateY(60%);
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+
+.edit-button2::before {
+  display: none;
+  content: "Edit";
+  color: white;
+  transition-duration: 0.3s;
+  font-size: 2px;
+}
+
+.edit-button2:hover::before {
+  display: block;
+  padding-right: 10px;
+  font-size: 13px;
+  opacity: 1;
+  transform: translateY(0px);
+  transition-duration: 0.3s;
+}

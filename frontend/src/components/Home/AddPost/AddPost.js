@@ -37,7 +37,8 @@ const AddPost = () => {
       .catch((err) => {
         console.log(err);
       });
-  };
+  };  
+
 
   return (
     <div className="add-post">

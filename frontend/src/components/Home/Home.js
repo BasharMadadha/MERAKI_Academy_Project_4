@@ -5,7 +5,6 @@ import Posts from "./Posts/Posts";
 import AddPost from "./AddPost/AddPost";
 
 const Home = () => {
-  
   return (
     <div>
       <NavBar />
