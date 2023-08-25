@@ -36,7 +36,7 @@ const getArticlesByAuthor = (req, res) => {
   let authorId = req.query.author;
 
   articlesModel
-    .findMany({ author: authorId })
+    .find({ author: authorId })
     .then((articles) => {
       if (!articles.length) {
         return res.status(404).json({
