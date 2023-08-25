@@ -1,34 +1,26 @@
-import "./Posts.css";
+import "./PostU.css";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { userData } from "../../../App";
-import Comment from "../Comment/Comment";
+import Comment from "../../Home/Comment/Comment";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Swal from "sweetalert2";
 
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 
-const Posts = () => {
+const PostU = ({ userProf }) => {
   const options = ["Delete", "Update"];
-
+  //console.log(userProf);
   const [articles, setArticles] = useState([]);
   const [articlesId, setArticlesId] = useState("");
-  const [userId, setUserId] = useState("");
   const [error, setError] = useState(null);
 
   const [commentUP, setCommentUP] = useState(false);
-
-  const { token, user } = useContext(userData);
-  console.log(user);
-  const config = {
-    headers: { Authorization: `Bearer ${token}` },
-  };
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -39,17 +31,14 @@ const Posts = () => {
     setAnchorEl(null);
   };
 
-  useEffect(() => {
-    getArticles();
-  }, []);
 
-  const getArticles = async () => {
+  const getArticlesByAuthor = async () => {
+    //console.log(userProf._id);
     await axios
-      .get(`http://localhost:5000/articles/`, config)
+      .get(`http://localhost:5000/articles/search_1?author=${userProf._id}`)
       .then((res) => {
-        const rever = res.data.articles
-        setArticles([...rever].reverse())
-        setUserId(res.data.userId);
+        setArticles(res.data.articles);
+        //console.log(res.data.articles);
       })
       .catch((error) => {
         setError(error);
@@ -60,7 +49,7 @@ const Posts = () => {
     await axios
       .delete(`http://localhost:5000/articles/${id}`)
       .then((res) => {
-        getArticles();
+        //getArticlesByAuthor();
       })
       .catch((error) => {
         setError(error);
@@ -73,7 +62,7 @@ const Posts = () => {
         description,
       })
       .then((res) => {
-        getArticles();
+        //getArticlesByAuthor();
       })
       .catch((error) => {
         setError(error);
@@ -95,12 +84,12 @@ const Posts = () => {
               <div key={article._id} className="postA">
                 <div className="userP">
                   <div className="userInfoP">
-                    <img src={user.profilePicture} alt="" />
+                    <img src={userProf.profilePicture} alt="" />
                     <div className="details">
                       <Link
                         style={{ textDecoration: "none", color: "inherit" }}
                       >
-                        <span className="name">{article.userName}</span>
+                        <span className="name">{userProf.firstName}</span>
                       </Link>
                       <span className="date">1 min ago</span>
                     </div>
@@ -130,11 +119,11 @@ const Posts = () => {
                 {commentUP && article._id === articlesId ? (
                   <Comment
                     article={article}
-                    getArticles={getArticles}
+                    getArticlesByAuthor={getArticlesByAuthor(userProf._id)}
                     setError={setError}
                   />
                 ) : null}
-                {userId === article.author && (
+                {userProf._id === article.author && (
                   <div className="menuP">
                     <IconButton
                       aria-label="more"
@@ -185,7 +174,7 @@ const Posts = () => {
                               (() => {
                                 Swal.fire({
                                   input: "textarea",
-                                  inputLabel: ` What's on your mind ${user.firstName} ...`,
+                                  inputLabel: ` What's on your mind ${userProf.firstName} ...`,
                                   inputPlaceholder: "Type in your mind here...",
                                   inputAttributes: {
                                     "aria-label": "Type your message here",
@@ -213,5 +202,4 @@ const Posts = () => {
   );
 };
 
-export default Posts;
-
+export default PostU;

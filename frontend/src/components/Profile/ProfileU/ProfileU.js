@@ -12,7 +12,7 @@ import { userData } from "../../../App";
 import { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import Posts from "../../Home/Posts/Posts";
+import PostU from "../postU/PostU";
 
 const ProfileU = () => {
   const { user } = useContext(userData);
@@ -24,7 +24,7 @@ const ProfileU = () => {
     getUserById();
   }, []);
 
-  const getUserById = async (id) => {
+  const getUserById = async () => {
     await axios
       .get(`http://localhost:5000/users/${user._id}`)
       .then((res) => {
@@ -193,9 +193,8 @@ const ProfileU = () => {
             <MoreVertIcon />
           </div>
         </div>
-        {/* <Posts/> */}
       </div>
-      <Posts/>
+      <PostU userProf={userProf}/>
     </div>
   );
 };

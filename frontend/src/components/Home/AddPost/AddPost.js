@@ -37,8 +37,7 @@ const AddPost = () => {
       .catch((err) => {
         console.log(err);
       });
-  };  
-
+  };
 
   return (
     <div className="add-post">
@@ -91,6 +90,7 @@ const AddPost = () => {
                 )
                 .then((result) => {
                   setDescription("");
+
                   <>
                     {Swal.fire({
                       position: "top",
@@ -100,6 +100,10 @@ const AddPost = () => {
                       timer: 1500,
                     })}
                   </>;
+                  setTimeout(() => {
+                    window.location.reload();
+                  }, 1800);
+                  //;
                 })
                 .catch((error) => {
                   <>

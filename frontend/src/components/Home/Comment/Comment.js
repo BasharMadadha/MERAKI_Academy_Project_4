@@ -5,7 +5,7 @@ import { useState, useContext } from "react";
 import "./Comment.css";
 import Swal from "sweetalert2";
 
-const Comment = ({ article, getArticles, setError }) => {
+const Comment = ({ article, getArticles, setError ,getArticlesByAuthor}) => {
   const { token, user } = useContext(userData);
 
   const config = {
@@ -20,6 +20,7 @@ const Comment = ({ article, getArticles, setError }) => {
       )
       .then((res) => {
         getArticles();
+        getArticlesByAuthor()
       })
       .catch((error) => {
         setError(error);
