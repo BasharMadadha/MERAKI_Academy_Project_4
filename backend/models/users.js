@@ -12,6 +12,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "https://www.pngitem.com/pimgs/m/504-5040528_empty-profile-picture-png-transparent-png.png", // Provide a default image URL
   },
+  profileCover: {
+    type: String,
+    default: "https://res.cloudinary.com/dv7ygzpv8/image/upload/v1692909494/pdlofnyhldxwups8xd1a.jpg", // Provide a default image URL
+  },
   registrationDate: {
     type: Date,
     default: Date.now, // Set the registration date to the current date and time

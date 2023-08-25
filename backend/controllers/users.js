@@ -103,7 +103,95 @@ const login = (req, res) => {
     });
 };
 
+//This function get all users
+const getAllUsers = (req, res) => {
+  const userId = req.token.userId;
+  usersModel
+    .find()
+    .then((users) => {
+      if (users.length) {
+        res.status(200).json({
+          success: true,
+          message: `All the users`,
+          userId: userId,
+          users: users,
+        });
+      } else {
+        res.status(200).json({
+          success: false,
+          message: `No users Yet`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: `Server Error`,
+        err: err.message,
+      });
+    });
+};
+
+const getUserById = (req, res) => {
+  let id = req.params.id;
+  usersModel
+    .findById(id)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({
+          success: false,
+          message: `The user with id => ${id} not found`,
+        });
+      }
+      res.status(200).json({
+        success: true,
+        message: `The user ${id} `,
+        user: user,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: `Server Error`,
+        err: err.message,
+      });
+    });
+};
+
+const updateUserById = (req, res) => {
+  const id = req.params.id;
+  const filter = req.body;
+  Object.keys(filter).forEach((key) => {
+    filter[key].toString().replaceAll(" ", "") == "" && delete filter[key];
+  });
+  usersModel
+    .findByIdAndUpdate({ _id: id }, req.body, { new: true })
+    .then((newUser) => {
+      if (!newUser) {
+        return res.status(404).json({
+          success: false,
+          message: `The article with id => ${id} not found`,
+        });
+      }
+      res.status(202).json({
+        success: true,
+        message: `User updated`,
+        user: newUser,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: `Server Error`,
+        err: err.message,
+      });
+    });
+};
+
 module.exports = {
   register,
   login,
+  getAllUsers,
+  getUserById,
+  updateUserById
 };
