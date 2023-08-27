@@ -38,7 +38,7 @@ const getArticlesByAuthor = (req, res) => {
   articlesModel
     .find({ author: authorId })
     .then((articles) => {
-      if (!articles.length) {
+      if (articles.length === 0) {
         return res.status(404).json({
           success: false,
           message: `The author: ${authorId} has no articles`,
@@ -48,6 +48,7 @@ const getArticlesByAuthor = (req, res) => {
         success: true,
         message: `All the articles for the author: ${authorId}`,
         articles: articles,
+        userId: authorId,
       });
     })
     .catch((err) => {
@@ -90,14 +91,14 @@ const getArticleById = (req, res) => {
 
 // This function creates new article
 const createNewArticle = (req, res) => {
-  const { description ,pic } = req.body;
+  const { description, pic } = req.body;
   const author = req.token.userId;
-  const userName = req.token.author
+  const userName = req.token.author;
   const newArticle = new articlesModel({
     description,
     pic,
     author,
-    userName
+    userName,
   });
 
   newArticle
