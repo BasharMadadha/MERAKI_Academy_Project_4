@@ -1,5 +1,4 @@
 import "./Posts.css";
-import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import { Link } from "react-router-dom";
@@ -11,32 +10,31 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Swal from "sweetalert2";
-
 import React, { useState, useContext, useEffect } from "react";
+import Likes from "../Likes/Likes";
+// import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
+// import ThumbUpAltRoundedIcon from "@mui/icons-material/ThumbUpAltRounded";
 
 const Posts = () => {
   const options = ["Delete", "Update"];
   const [articlesId, setArticlesId] = useState("");
   const [error, setError] = useState(null);
   const [commentUP, setCommentUP] = useState(false);
-  
+
   const {
-    token,
     user,
     getArticlesByAuthor,
     homeProf,
     articles,
-    setArticles,
     userId,
     setUserId,
     getUserById,
     setHomeProf,
     userProf,
+    getArticles,
   } = useContext(userData);
   //console.log(user);
-  const config = {
-    headers: { Authorization: `Bearer ${token}` },
-  };
+
   const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
@@ -49,19 +47,6 @@ const Posts = () => {
   useEffect(() => {
     homeProf ? getArticlesByAuthor() : getArticles();
   }, []);
-
-  const getArticles = async () => {
-    await axios
-      .get(`http://localhost:5000/articles/`, config)
-      .then((res) => {
-        const rever = res.data.articles;
-        setArticles([...rever].reverse());
-        setUserId(res.data.userId);
-      })
-      .catch((error) => {
-        setError(error);
-      });
-  };
 
   const DeleteArticle = async (id) => {
     await axios
@@ -88,10 +73,6 @@ const Posts = () => {
   };
 
   if (error) return `Error: ${error.message}`;
-  //if (!articles) return  navigate("/AddArticle");
-
-  //TEMPORARY
-  //const liked = false;
 
   return (
     <div>
@@ -106,6 +87,7 @@ const Posts = () => {
                     onClick={() => {
                       setHomeProf(true);
                       setUserId(article.author);
+                      localStorage.setItem("userId", article.author);
                       localStorage.setItem("homeProf1", JSON.stringify(true));
                       getUserById();
                       getArticlesByAuthor();
@@ -116,7 +98,6 @@ const Posts = () => {
                       <img src={article.authorPic} alt="" />
                       <div className="details">
                         <span className="name">{article.userName}</span>
-
                         <span className="date">1 min ago</span>
                       </div>
                     </div>
@@ -131,8 +112,7 @@ const Posts = () => {
                   />
                 </div>
                 <div className="itemP">
-                  <FavoriteOutlinedIcon />
-                  12 Likes
+                  <Likes article={article} />
                   <TextsmsOutlinedIcon
                     onClick={() => {
                       setCommentUP((show) => !show);
@@ -151,7 +131,7 @@ const Posts = () => {
                   />
                 )}
 
-                {(homeProf ? user._id === userProf._id :true) &&
+                {(homeProf ? user._id === userProf._id : true) &&
                   userId === article.author && (
                     <div className="menuP">
                       <IconButton

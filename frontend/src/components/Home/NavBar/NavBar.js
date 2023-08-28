@@ -10,7 +10,7 @@ import { useContext } from "react";
 import { userData } from "../../../App";
 
 const NavBar = () => {
-  const { user, setToken, getUserById, getArticlesByAuthor, setHomeProf } =
+  const { user, setToken, getUserById, getArticlesByAuthor, setHomeProf,setUserId } =
     useContext(userData);
   const navigate = useNavigate();
 
@@ -48,6 +48,8 @@ const NavBar = () => {
           onClick={() => {
             setHomeProf(true);
             localStorage.setItem("homeProf1", JSON.stringify(true));
+            setUserId(user._id);
+            localStorage.setItem("userId", user._id);
             getUserById();
             getArticlesByAuthor();
             navigate("/Profile");

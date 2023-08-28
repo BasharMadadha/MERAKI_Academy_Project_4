@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 const AddPost = () => {
   const [description, setDescription] = useState("");
   const [pic, setPic] = useState("");
-  const { token, user } = useContext(userData);
+  const { token, user,getArticles } = useContext(userData);
   const [loading, setLoading] = useState(false);
 
   const config = {
@@ -97,7 +97,7 @@ const AddPost = () => {
                 )
                 .then((result) => {
                   setDescription("");
-
+                  setPic("");
                   <>
                     {Swal.fire({
                       position: "top",
@@ -107,10 +107,7 @@ const AddPost = () => {
                       timer: 1500,
                     })}
                   </>;
-                  setTimeout(() => {
-                    window.location.reload();
-                  }, 1800);
-                  //;
+                  getArticles()
                 })
                 .catch((error) => {
                   <>

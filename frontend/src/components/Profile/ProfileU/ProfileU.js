@@ -176,11 +176,11 @@ const ProfileU = () => {
             <div className="info">
               <div className="itemF">
                 <PlaceIcon />
-                <span>USA</span>
+                <span>{userProf.country}</span>
               </div>
               <div className="itemF">
                 <LanguageIcon />
-                <span>lama.dev</span>
+                {/* <span></span> */}
               </div>
             </div>
             <button>follow</button>

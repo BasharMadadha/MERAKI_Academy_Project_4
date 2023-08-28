@@ -5,8 +5,8 @@ import { useContext } from "react";
 import "./Comment.css";
 import Swal from "sweetalert2";
 
-const Comment = ({ article, getArticles }) => {
-  const { token, user, getArticlesByAuthor, homeProf } = useContext(userData);
+const Comment = ({ article }) => {
+  const { token, user, getArticlesByAuthor, homeProf ,getArticles} = useContext(userData);
 
   const config = {
     headers: { Authorization: `Bearer ${token}` },

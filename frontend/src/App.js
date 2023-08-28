@@ -5,7 +5,7 @@ import User from "./components/User/User";
 import Home from "./components/Home/Home";
 import Profile from "./components/Profile/Profile";
 import axios from "axios";
-import { Login } from "@mui/icons-material";
+
 export const userData = createContext();
 
 function App() {
@@ -19,7 +19,12 @@ function App() {
   const [homeProf, setHomeProf] = useState(JSON.parse(homeProf1));
   const [user, setUser] = useState(JSON.parse(userD));
   //console.log(user);
-  
+
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+
+
   const getUserById = async () => {
     await axios
       .get(`http://localhost:5000/users/${userId}`)
@@ -27,24 +32,39 @@ function App() {
         setUserProf(res.data.user);
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.message);
       });
   };
 
   const getArticlesByAuthor = async () => {
+    setArticles([]);
     await axios
       .get(`http://localhost:5000/articles/search_1?author=${userId}`)
       .then((res) => {
         const rever = res.data.articles;
+        //console.log(res.data);
         setArticles([...rever].reverse());
-        setUserId(res.data.userId)
-        localStorage.setItem("userId", res.data.userId);
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
+  
+
+  const getArticles = async () => {
+    await axios
+      .get(`http://localhost:5000/articles/`, config)
+      .then((res) => {
+        const rever = res.data.articles;
+        setArticles([...rever].reverse());
+        setUserId(res.data.userId);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+ 
   return (
     <div className="App">
       <userData.Provider
@@ -62,6 +82,8 @@ function App() {
           setHomeProf,
           userId,
           setUserId,
+          getArticles,
+          // addLike
         }}
       >
         <Routes>
