@@ -6,6 +6,7 @@ const getAllArticles = (req, res) => {
   articlesModel
     .find()
     .populate("comments")
+    .populate("likes")
     .exec()
     .then((articles) => {
       if (articles.length) {
@@ -38,8 +39,10 @@ const getArticlesByAuthor = (req, res) => {
   articlesModel
     .find({ author: authorId })
     .populate("comments")
+    .populate("likes")
     .exec()
     .then((articles) => {
+      //console.log(articles.length === 0);
       if (articles.length === 0) {
         return res.status(404).json({
           success: false,
