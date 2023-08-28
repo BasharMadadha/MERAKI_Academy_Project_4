@@ -78,6 +78,7 @@ const login = (req, res) => {
           author: `${result.firstName} ${result.lastName}`,
           role: result.role,
           country: result.country,
+          authorPic: result.profilePicture,
         };
 
         const options = {
@@ -193,5 +194,5 @@ module.exports = {
   login,
   getAllUsers,
   getUserById,
-  updateUserById
+  updateUserById,
 };

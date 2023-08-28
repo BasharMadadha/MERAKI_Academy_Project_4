@@ -37,6 +37,8 @@ const getArticlesByAuthor = (req, res) => {
 
   articlesModel
     .find({ author: authorId })
+    .populate("comments")
+    .exec()
     .then((articles) => {
       if (articles.length === 0) {
         return res.status(404).json({
@@ -94,11 +96,13 @@ const createNewArticle = (req, res) => {
   const { description, pic } = req.body;
   const author = req.token.userId;
   const userName = req.token.author;
+  const authorPic = req.token.authorPic
   const newArticle = new articlesModel({
     description,
     pic,
     author,
     userName,
+    authorPic
   });
 
   newArticle
