@@ -4,17 +4,20 @@ import axios from "axios";
 import { userData } from "../../../App";
 import Gallery from "../../../image/icons/8.png";
 import Swal from "sweetalert2";
-//import { Link } from "react-router-dom";
+
 
 const AddPost = () => {
   const [description, setDescription] = useState("");
   const [pic, setPic] = useState("");
   const { token, user } = useContext(userData);
+  const [loading, setLoading] = useState(false);
+
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
 
   const processFile = async (files) => {
+    setLoading(true);
     const CLOUD_NAME = "dv7ygzpv8";
     const UNSIGNED_UPLOAD_PRESET = "dpybqbgc";
     const file = files;
@@ -37,6 +40,10 @@ const AddPost = () => {
       .catch((err) => {
         console.log(err);
       });
+      setTimeout(() => {
+        setLoading(false);
+      }, 1500);
+      
   };
 
   return (
@@ -126,6 +133,9 @@ const AddPost = () => {
           {pic.length > 0 && <img src={pic} alt="" className="picU" />}
         </div>
       </div>
+      <div>
+      {loading && <div className="loader">Loading...</div>}
+    </div>
     </div>
   );
 };

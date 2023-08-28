@@ -148,3 +148,11 @@ button:hover .button-text {
   border-radius: 10px;
   object-fit: cover;
 }
+
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-size: 1.5rem;
+}

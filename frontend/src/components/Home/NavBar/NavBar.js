@@ -3,7 +3,6 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
-//import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,15 +10,23 @@ import { useContext } from "react";
 import { userData } from "../../../App";
 
 const NavBar = () => {
-  const { user, setToken } = useContext(userData);
+  const { user, setToken, getUserById, getArticlesByAuthor, setHomeProf } =
+    useContext(userData);
   const navigate = useNavigate();
+
   return (
     <div className="navbar">
       <div className="left">
         <Link to="#" style={{ textDecoration: "none" }}>
           <span className="logo">Logo</span>
         </Link>
-        <Link to="/Home">
+        <Link
+          to="/Home"
+          onClick={() => {
+            setHomeProf(false);
+            localStorage.setItem("homeProf1", JSON.stringify(false));
+          }}
+        >
           <HomeOutlinedIcon />
         </Link>
         {true ? <WbSunnyOutlinedIcon /> : <DarkModeOutlinedIcon />}
@@ -39,6 +46,10 @@ const NavBar = () => {
         <div
           className="user"
           onClick={() => {
+            setHomeProf(true);
+            localStorage.setItem("homeProf1", JSON.stringify(true));
+            getUserById();
+            getArticlesByAuthor();
             navigate("/Profile");
           }}
         >

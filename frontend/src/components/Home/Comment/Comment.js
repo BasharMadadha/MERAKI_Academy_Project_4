@@ -1,16 +1,17 @@
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { userData } from "../../../App";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import "./Comment.css";
 import Swal from "sweetalert2";
 
-const Comment = ({ article, getArticles, setError ,getArticlesByAuthor}) => {
-  const { token, user } = useContext(userData);
+const Comment = ({ article, getArticles }) => {
+  const { token, user, getArticlesByAuthor, homeProf } = useContext(userData);
 
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
+
   const createComment = async (id, comment) => {
     await axios
       .post(
@@ -19,11 +20,10 @@ const Comment = ({ article, getArticles, setError ,getArticlesByAuthor}) => {
         config
       )
       .then((res) => {
-        getArticles();
-        getArticlesByAuthor()
+        homeProf ? getArticlesByAuthor() : getArticles();
       })
       .catch((error) => {
-        setError(error);
+        console.log(error);
       });
   };
 

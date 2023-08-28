@@ -1,0 +1,19 @@
+//eligibility check function that considers the first 100 users
+
+async function checkEligibilityForFirst100(req, res, next) {
+  try {
+    const eligibleUsersCount = await User.countDocuments({ isEligible: true });
+
+    if (eligibleUsersCount < 100) {
+      req.isEligible = true;
+      next(); // Proceed to the next middleware or route handler
+
+//key in userSchema
+
+isEligible: Boolean
+
+//in frontend add state have boolean this key(userSchema)
+
+//Using date-fns Library to format the date and time in a relative format using :
+
+npm install date-fns

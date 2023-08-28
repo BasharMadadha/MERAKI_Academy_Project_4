@@ -5,8 +5,11 @@ import Posts from "./Posts/Posts";
 import AddPost from "./AddPost/AddPost";
 
 const Home = () => {
+  
+
+
   return (
-    <div>
+    <div style={{fontFamily: "sans-serif"}}>
       <NavBar />
       <div style={{ display: "flex" }}>
         <LeftBar />

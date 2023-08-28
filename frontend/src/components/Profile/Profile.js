@@ -3,7 +3,7 @@ import ProfileU from "./ProfileU/ProfileU";
 import LeftBar from "../Home/LeftBar/LeftBar";
 import RightBar from "../Home/RightBar/RightBar";
 import NavBar from "../Home/NavBar/NavBar";
-//import Posts from "../../components/posts/Posts"
+
 
 const Profile = () => {
   return (
