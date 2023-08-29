@@ -32,12 +32,12 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre("save", async function (next) {
   this.email = this.email.toLowerCase();
-  const existingUser = await mongoose.models.User.findOne({
-    email: this.email,
-  });
-  if (existingUser) {
-    throw new Error("Email is already taken.");
-  }
+  // const existingUser = await mongoose.models.User.findOne({
+  //   email: this.email,
+  // });
+  // if (existingUser) {
+  //   throw new Error("Email is already taken.");
+  // }
   if (this.isModified("password")) {
     try {
       validatePassword(this.password, this.email);
