@@ -18,9 +18,8 @@ function App() {
   const [articles, setArticles] = useState([]);
   const [homeProf, setHomeProf] = useState(JSON.parse(homeProf1));
   const [user, setUser] = useState(JSON.parse(userD));
-  //console.log(user);
+  //console.log(user._id);
   
-
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };

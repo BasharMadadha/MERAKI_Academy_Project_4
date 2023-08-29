@@ -13,9 +13,9 @@ import ListItemText from "@mui/material/ListItemText";
 import Avatar from "@mui/material/Avatar";
 
 const Likes = ({ article }) => {
-  const { token, getArticlesByAuthor, homeProf, getArticles, userId } =
+  const { token, getArticlesByAuthor, homeProf, getArticles,user } =
     useContext(userData);
-
+    //console.log(userId);
     const [toggel, setToggel] = useState(false);
 
   const config = {
@@ -27,7 +27,6 @@ const Likes = ({ article }) => {
       .post(`http://localhost:5000/articles/like/${id}`, true, config)
       .then((res) => {
         homeProf ? getArticlesByAuthor() : getArticles();
-        console.log(res.data.liked);
       })
       .catch((error) => {
         console.log(error);
@@ -45,7 +44,7 @@ const Likes = ({ article }) => {
       });
   };
 
-  const userLike = article.likes.find((like) => like.user._id === userId);
+  const userLike = article.likes.find((like) => like.user._id === user._id);
 
   return (
     <div style={{ display: "flex", alignItems: "center" }}>

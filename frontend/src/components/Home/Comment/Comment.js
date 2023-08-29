@@ -56,7 +56,7 @@ const Comment = ({ article }) => {
               <img src={user.profilePicture} alt="" />
               <div className="detailsC">
                 <Link style={{ textDecoration: "none", color: "inherit" }}>
-                  <span className="nameC">{article.userName}</span>
+                  <span className="nameC">{`${user.firstName} ${user.lastName}`}</span>
                 </Link>
                 <span className="dateC">1 min ago</span>
               </div>
