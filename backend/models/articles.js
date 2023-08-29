@@ -11,6 +11,8 @@ const articles = new mongoose.Schema({
   likes: [
     {
       user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+      userName: { type: String },
+      userPic: { type: String },
     },
   ],
 });

@@ -6,7 +6,7 @@ const getAllArticles = (req, res) => {
   articlesModel
     .find()
     .populate("comments")
-    .populate("likes")
+    .populate("likes.user", "userName userPic")
     .exec()
     .then((articles) => {
       if (articles.length) {
@@ -39,10 +39,10 @@ const getArticlesByAuthor = (req, res) => {
   articlesModel
     .find({ author: authorId })
     .populate("comments")
-    .populate("likes")
+    .populate("likes.user", "userName userPic")
     .exec()
     .then((articles) => {
-      //console.log(articles.length === 0);
+      //console.log(articles);
       if (articles.length === 0) {
         return res.status(404).json({
           success: false,
@@ -99,13 +99,13 @@ const createNewArticle = (req, res) => {
   const { description, pic } = req.body;
   const author = req.token.userId;
   const userName = req.token.author;
-  const authorPic = req.token.authorPic
+  const authorPic = req.token.authorPic;
   const newArticle = new articlesModel({
     description,
     pic,
     author,
     userName,
-    authorPic
+    authorPic,
   });
 
   newArticle

@@ -21,7 +21,13 @@ const userSchema = new mongoose.Schema({
     default: Date.now, // Set the registration date to the current date and time
   },
   role: { type: mongoose.Schema.Types.ObjectId, ref: "Role" },
-  friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  friends:[
+    {
+      user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+      userName: { type: String },
+      userPic: { type: String },
+    },
+  ],
 });
 
 userSchema.pre("save", async function (next) {
