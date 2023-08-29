@@ -19,11 +19,13 @@ function App() {
   const [homeProf, setHomeProf] = useState(JSON.parse(homeProf1));
   const [user, setUser] = useState(JSON.parse(userD));
   //console.log(user);
+  
 
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
 
+  
 
   const getUserById = async () => {
     await axios
@@ -50,8 +52,6 @@ function App() {
       });
   };
 
-  
-
   const getArticles = async () => {
     await axios
       .get(`http://localhost:5000/articles/`, config)
@@ -64,9 +64,9 @@ function App() {
         console.log(error);
       });
   };
- 
+
   return (
-    <div className="App">
+    <div className="App" >
       <userData.Provider
         value={{
           token,
@@ -83,7 +83,7 @@ function App() {
           userId,
           setUserId,
           getArticles,
-          // addLike
+          
         }}
       >
         <Routes>

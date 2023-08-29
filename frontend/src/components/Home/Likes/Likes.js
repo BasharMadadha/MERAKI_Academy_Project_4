@@ -1,23 +1,33 @@
 import React from "react";
+import "./Like.css";
 import { userData } from "../../../App";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import ThumbUpAltRoundedIcon from "@mui/icons-material/ThumbUpAltRounded";
+import Box from "@mui/material/Box";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
+import Avatar from "@mui/material/Avatar";
 
 const Likes = ({ article }) => {
   const { token, getArticlesByAuthor, homeProf, getArticles, userId } =
     useContext(userData);
 
+    const [toggel, setToggel] = useState(false);
+
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
-  //console.log(article);
+
   const addLike = async (id) => {
     await axios
       .post(`http://localhost:5000/articles/like/${id}`, true, config)
       .then((res) => {
         homeProf ? getArticlesByAuthor() : getArticles();
+        console.log(res.data.liked);
       })
       .catch((error) => {
         console.log(error);
@@ -26,7 +36,7 @@ const Likes = ({ article }) => {
 
   const DeleteLike = async (id) => {
     await axios
-      .delete(`http://localhost:5000/articles/like/${id}`,config)
+      .delete(`http://localhost:5000/articles/like/${id}`, config)
       .then((res) => {
         homeProf ? getArticlesByAuthor() : getArticles();
       })
@@ -35,7 +45,8 @@ const Likes = ({ article }) => {
       });
   };
 
-  const userLike = article.likes.find((like) => like.user === userId);
+  const userLike = article.likes.find((like) => like.user._id === userId);
+
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
       {article.likes.length === 0 ? (
@@ -45,9 +56,12 @@ const Likes = ({ article }) => {
           }}
         />
       ) : userLike ? (
-        <ThumbUpAltRoundedIcon style={{color:"blue"}} onClick={()=>{
-            DeleteLike(article._id)
-        }}/>
+        <ThumbUpAltRoundedIcon
+          style={{ color: "blue" }}
+          onClick={() => {
+            DeleteLike(article._id);
+          }}
+        />
       ) : (
         <ThumbUpAltOutlinedIcon
           onClick={() => {
@@ -55,7 +69,31 @@ const Likes = ({ article }) => {
           }}
         />
       )}
-      <span style={{ marginLeft: "5px" }}>{article.likes.length} Likes</span>
+      <span
+        onClick={() => {
+          setToggel((prv)=>!prv)
+
+        }}
+        style={{ marginLeft: "5px" }}
+      >
+        {article.likes.length} Likes
+      </span>
+      {toggel && (
+        <Box className="box" sx={{ flexGrow: 1, maxWidth: 752 }}>
+          <List>
+            {article.likes.map((like) => {
+              return (
+                <ListItem key={like._id}>
+                  <ListItemAvatar>
+                    <Avatar src={like.userPic} />
+                  </ListItemAvatar>
+                  <ListItemText primary={like.userName} />
+                </ListItem>
+              );
+            })}
+          </List>
+        </Box>
+      )}
     </div>
   );
 };
