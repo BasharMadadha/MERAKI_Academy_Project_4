@@ -9,7 +9,7 @@ const {
 
 // define router
 const usersRouter = express.Router();
-const { follow ,unFollow} = require("./../controllers/friends");
+const { follow ,unFollow,noti} = require("./../controllers/friends");
 const authentication = require("../middleware/authentication");
 /*
  * Testing Routes:
@@ -17,6 +17,7 @@ const authentication = require("../middleware/authentication");
  * POST -> http://localhost:5000/users/login
  * POST -> http://localhost:5000/users/follow/22
  * DELETE->http://localhost:5000/users/follow/22
+ * DELETE->http://localhost:5000/users/notifications/22
  * get ->  http://localhost:5000/users/
  * get ->  http://localhost:5000/users/:id
  * put ->  http://localhost:5000/users/:id
@@ -29,5 +30,6 @@ usersRouter.get("/:id", getUserById);
 usersRouter.put("/:id", updateUserById);
 usersRouter.post("/follow/:idUser",authentication, follow);
 usersRouter.delete("/follow/:idUser",authentication, unFollow);
+usersRouter.delete("/notifications/:notiId",authentication, noti);
 
 module.exports = usersRouter;

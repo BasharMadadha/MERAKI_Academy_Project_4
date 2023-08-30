@@ -57,7 +57,7 @@ const follow = async (req, res) => {
 
     currentUser.following.push({
       user: idUser,
-      userName:`${userToFollow.firstName} ${userToFollow.lastName}`,
+      userName: `${userToFollow.firstName} ${userToFollow.lastName}`,
       userPic: userToFollow.profilePicture,
     });
     await currentUser.save();
@@ -74,8 +74,6 @@ const follow = async (req, res) => {
     });
   }
 };
-
-
 
 const unFollow = async (req, res) => {
   try {
@@ -150,8 +148,52 @@ const unFollow = async (req, res) => {
   }
 };
 
+const noti = async (req, res) => {
+  try {
+    const notiId = req.params.notiId;
+    const userId = req.token.userId;
+
+    const notiDelete = await usersModel.findById(userId);
+    if (!notiDelete) {
+      return res.status(404).json({
+        success: false,
+        message: `The user with id => ${notiId} not found`,
+      });
+    }
+
+    // Find the index of the follower by the specific user
+    const notiIndex = notiDelete.notifications.findIndex(
+      (noti) => noti._id.toString() === notiId
+    );
+
+    if (notiIndex === -1) {
+      return res.status(404).json({
+        success: false,
+        message: `notifications not found for the user`,
+      });
+    }
+
+    // Remove the follower's entry from the followers array and notifications array
+    notiDelete.notifications.splice(notiIndex, 1);
+
+    // Save the modified user
+    await notiDelete.save();
+
+    res.status(200).json({
+      success: true,
+      message: `Deleted notifications the user`,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: `Server Error`,
+      err: err.message,
+    });
+  }
+};
 
 module.exports = {
   follow,
   unFollow,
+  noti
 };
