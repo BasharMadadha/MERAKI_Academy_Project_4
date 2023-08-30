@@ -1,10 +1,22 @@
 import "./NavBar.css";
+import * as React from "react";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
+import Menu from "@mui/material/Menu";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Tooltip from "@mui/material/Tooltip";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { userData } from "../../../App";
@@ -20,6 +32,15 @@ const NavBar = ({ getUserById, getUserById1 }) => {
     homeProf,
   } = useContext(userData);
   const navigate = useNavigate();
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <div className="navbar">
@@ -45,13 +66,84 @@ const NavBar = ({ getUserById, getUserById1 }) => {
       </div>
       <div className="right">
         <EmailOutlinedIcon />
-        <button className="button">
-          <Badge badgeContent={0} color="secondary">
-            <svg viewBox="0 0 448 512" className="bell">
-              <path d="M224 0c-17.7 0-32 14.3-32 32V49.9C119.5 61.4 64 124.2 64 200v33.4c0 45.4-15.5 89.5-43.8 124.9L5.3 377c-5.8 7.2-6.9 17.1-2.9 25.4S14.8 416 24 416H424c9.2 0 17.6-5.3 21.6-13.6s2.9-18.2-2.9-25.4l-14.9-18.6C399.5 322.9 384 278.8 384 233.4V200c0-75.8-55.5-138.6-128-150.1V32c0-17.7-14.3-32-32-32zm0 96h8c57.4 0 104 46.6 104 104v33.4c0 47.9 13.9 94.6 39.7 134.6H72.3C98.1 328 112 281.3 112 233.4V200c0-57.4 46.6-104 104-104h8zm64 352H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7s18.7-28.3 18.7-45.3z"></path>
-            </svg>
+        <div onClick={() => {}}>
+          <Badge badgeContent={user.notifications.length} color="error">
+            <React.Fragment>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  textAlign: "center",
+                }}
+              >
+                <Tooltip title="Notifications">
+                  <IconButton
+                    onClick={handleClick}
+                    size="small"
+                    sx={{ ml: 1 }}
+                    aria-controls={open ? "account-menu" : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? "true" : undefined}
+                  >
+                    <Avatar sx={{ width: 32, height: 32 }}>
+                      <svg viewBox="0 0 448 512" className="bell">
+                        <path d="M224 0c-17.7 0-32 14.3-32 32V49.9C119.5 61.4 64 124.2 64 200v33.4c0 45.4-15.5 89.5-43.8 124.9L5.3 377c-5.8 7.2-6.9 17.1-2.9 25.4S14.8 416 24 416H424c9.2 0 17.6-5.3 21.6-13.6s2.9-18.2-2.9-25.4l-14.9-18.6C399.5 322.9 384 278.8 384 233.4V200c0-75.8-55.5-138.6-128-150.1V32c0-17.7-14.3-32-32-32zm0 96h8c57.4 0 104 46.6 104 104v33.4c0 47.9 13.9 94.6 39.7 134.6H72.3C98.1 328 112 281.3 112 233.4V200c0-57.4 46.6-104 104-104h8zm64 352H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7s18.7-28.3 18.7-45.3z"></path>
+                      </svg>
+                    </Avatar>
+                  </IconButton>
+                </Tooltip>
+              </Box>
+              <Menu
+                anchorEl={anchorEl}
+                id="account-menu"
+                open={open}
+                onClose={handleClose}
+                onClick={handleClose}
+                transformOrigin={{ horizontal: "right", vertical: "top" }}
+                anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+              >
+                {user.notifications.map((noti) => {
+                  return (
+                    <div key={noti._id}>
+                      <List
+                        sx={{
+                          width: "100%",
+                          maxWidth: 360,
+                          bgcolor: "background.paper",
+                        }}
+                      >
+                        <ListItem alignItems="flex-start">
+                          <ListItemAvatar>
+                            <Avatar alt={noti.userName} src={noti.userPic} />
+                          </ListItemAvatar>
+                          <ListItemText
+                            primary={noti.userName}
+                            secondary={
+                              <React.Fragment>
+                                <Typography
+                                  sx={{ display: "inline" }}
+                                  component="span"
+                                  variant="body2"
+                                  color="text.primary"
+                                >
+                                  Follow you
+                                </Typography>
+                                {
+                                  " — You've got a new follower. Keep up the great work!"
+                                }
+                              </React.Fragment>
+                            }
+                          />
+                        </ListItem>
+                      </List>
+                      <Divider />
+                    </div>
+                  );
+                })}
+              </Menu>
+            </React.Fragment>
           </Badge>
-        </button>
+        </div>
         <div
           className="user"
           onClick={() => {

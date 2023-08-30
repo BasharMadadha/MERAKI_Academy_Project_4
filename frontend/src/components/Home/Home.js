@@ -15,7 +15,6 @@ const Home = () => {
     headers: { Authorization: `Bearer ${token}` },
   };
 
-
   const getUserById = async () => {
     await axios
       .get(`http://localhost:5000/users/${userId}`)
@@ -55,14 +54,14 @@ const Home = () => {
 
   return (
     <div style={{ fontFamily: "sans-serif" }}>
-      <NavBar getUserById1={getUserById}/>
+      <NavBar getUserById1={getUserById} />
       <div style={{ display: "flex" }}>
         <LeftBar />
         <div style={{ flex: 6 }}>
           <AddPost />
           <Posts userProf={userProf}/>
         </div>
-        <RightBar unFollow1={unFollow} follow1={follow}/>
+        <RightBar unFollow1={unFollow} follow1={follow} />
       </div>
     </div>
   );

@@ -1,8 +1,19 @@
 import "./ProfileU.css";
+import * as React from "react";
+import Menu from "@mui/material/Menu";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 import PlaceIcon from "@mui/icons-material/Place";
 import LanguageIcon from "@mui/icons-material/Language";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import Box from "@mui/material/Box";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
+import Avatar from "@mui/material/Avatar";
 import { userData } from "../../../App";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
@@ -21,6 +32,26 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
         setLoading(false);
       });
   }, []);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const [anchorEl1, setAnchorEl1] = React.useState(null);
+  const open1 = Boolean(anchorEl1);
+  const handleClick1 = (event) => {
+    setAnchorEl1(event.currentTarget);
+  };
+
+  const handleClose1 = () => {
+    setAnchorEl1(null);
+  };
 
   const processFile = async (files, boolean) => {
     const CLOUD_NAME = "dv7ygzpv8";
@@ -190,9 +221,121 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
                   }}
                 />
               ))}
-            <div className="spans">
-              <span>{userProf.followers.length} Followers</span>
-              <span>{userProf.following.length} Following</span>
+            <div className="spans" style={{display:"flex"}}>
+              <React.Fragment>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    textAlign: "center",
+                  }}
+                >
+                  <Tooltip title="Followers">
+                    <IconButton
+                      onClick={handleClick}
+                      size="small"
+                      sx={{ ml: 2 }}
+                      aria-controls={open ? "account-menu" : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={open ? "true" : undefined}
+                    >
+                      <span>{userProf.followers.length} Followers</span>
+                    </IconButton>
+                  </Tooltip>
+                </Box>
+                <Menu
+                  anchorEl={anchorEl}
+                  id="account-menu"
+                  open={open}
+                  onClose={handleClose}
+                  onClick={handleClose}
+                  transformOrigin={{ horizontal: "right", vertical: "top" }}
+                  anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+                >
+                  {userProf.followers.length>=0&&  userProf.followers.map((follow) => {
+                    return (
+                      <div key={follow._id}>
+                        <List
+                          sx={{
+                            width: "100%",
+                            maxWidth: 360,
+                            bgcolor: "background.paper",
+                            alignItems: "center",
+                          }}
+                        >
+                          <ListItem alignItems="flex-start">
+                            <ListItemAvatar>
+                              <Avatar
+                                alt={follow.userName}
+                                src={follow.userPic}
+                              />
+                            </ListItemAvatar>
+                            <ListItemText primary={follow.userName} />
+                          </ListItem>
+                        </List>
+                        <Divider />
+                      </div>
+                    );
+                  })}
+                </Menu>
+              </React.Fragment>
+              <React.Fragment>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    textAlign: "center",
+                  }}
+                >
+                  <Tooltip title="Following">
+                    <IconButton
+                      onClick={handleClick1}
+                      size="small"
+                      sx={{ ml: 2 }}
+                      aria-controls={open1 ? "account-menu1" : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={open1 ? "true" : undefined}
+                    >
+                      <span>{userProf.following.length} Following</span>
+                    </IconButton>
+                  </Tooltip>
+                </Box>
+                <Menu
+                  anchorEl={anchorEl1}
+                  id="account-menu1"
+                  open={open1}
+                  onClose={handleClose1}
+                  onClick={handleClose1}
+                  transformOrigin={{ horizontal: "right", vertical: "top" }}
+                  anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+                >
+                  {userProf.following.length>=0&&  userProf.following.map((follow1) => {
+                    return (
+                      <div key={follow1._id}>
+                        <List
+                          sx={{
+                            width: "100%",
+                            maxWidth: 360,
+                            bgcolor: "background.paper",
+                            alignItems: "center",
+                          }}
+                        >
+                          <ListItem alignItems="center">
+                            <ListItemAvatar>
+                              <Avatar
+                                alt={follow1.userName}
+                                src={follow1.userPic}
+                              />
+                            </ListItemAvatar>
+                            <ListItemText primary={follow1.userName} />
+                          </ListItem>
+                        </List>
+                        <Divider />
+                      </div>
+                    );
+                  })}
+                </Menu>
+              </React.Fragment>
             </div>
           </div>
         </div>
