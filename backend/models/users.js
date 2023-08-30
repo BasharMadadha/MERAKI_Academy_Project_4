@@ -10,18 +10,34 @@ const userSchema = new mongoose.Schema({
   password: { type: String },
   profilePicture: {
     type: String,
-    default: "https://www.pngitem.com/pimgs/m/504-5040528_empty-profile-picture-png-transparent-png.png", // Provide a default image URL
+    default:
+      "https://www.pngitem.com/pimgs/m/504-5040528_empty-profile-picture-png-transparent-png.png", // Provide a default image URL
   },
   profileCover: {
     type: String,
-    default: "https://res.cloudinary.com/dv7ygzpv8/image/upload/v1692909494/pdlofnyhldxwups8xd1a.jpg", // Provide a default image URL
+    default:
+      "https://res.cloudinary.com/dv7ygzpv8/image/upload/v1692909494/pdlofnyhldxwups8xd1a.jpg", // Provide a default image URL
   },
   registrationDate: {
     type: Date,
     default: Date.now, // Set the registration date to the current date and time
   },
   role: { type: mongoose.Schema.Types.ObjectId, ref: "Role" },
-  friends:[
+  followers: [
+    {
+      user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+      userName: { type: String },
+      userPic: { type: String },
+    },
+  ],
+  following: [
+    {
+      user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+      userName: { type: String },
+      userPic: { type: String },
+    },
+  ],
+  notifications: [
     {
       user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
       userName: { type: String },
