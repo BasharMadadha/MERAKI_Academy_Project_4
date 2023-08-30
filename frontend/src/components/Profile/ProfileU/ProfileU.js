@@ -1,24 +1,25 @@
 import "./ProfileU.css";
-import FacebookTwoToneIcon from "@mui/icons-material/FacebookTwoTone";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import PinterestIcon from "@mui/icons-material/Pinterest";
-import TwitterIcon from "@mui/icons-material/Twitter";
 import PlaceIcon from "@mui/icons-material/Place";
 import LanguageIcon from "@mui/icons-material/Language";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import { userData } from "../../../App";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Posts from "../../Home/Posts/Posts";
 
-const ProfileU = () => {
-  const { getUserById, userProf, user } = useContext(userData);
+const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
+  const { user } = useContext(userData);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getUserById();
+    getUserById()
+      .then(() => setLoading(false))
+      .catch((error) => {
+        console.error("Error fetching user profile:", error);
+        setLoading(false);
+      });
   }, []);
 
   const processFile = async (files, boolean) => {
@@ -89,6 +90,13 @@ const ProfileU = () => {
       })
       .catch((error) => {});
   };
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+  const userFollower = userProf.followers.find(
+    (follow) => follow.user === user._id
+  );
+
   return (
     <div className="profile">
       <div className="images">
@@ -146,23 +154,6 @@ const ProfileU = () => {
       </div>
       <div className="profileContainer">
         <div className="uInfo">
-          <div className="left">
-            <a href="http://facebook.com">
-              <FacebookTwoToneIcon fontSize="large" />
-            </a>
-            <a href="http://facebook.com">
-              <InstagramIcon fontSize="large" />
-            </a>
-            <a href="http://facebook.com">
-              <TwitterIcon fontSize="large" />
-            </a>
-            <a href="http://facebook.com">
-              <LinkedInIcon fontSize="large" />
-            </a>
-            <a href="http://facebook.com">
-              <PinterestIcon fontSize="large" />
-            </a>
-          </div>
           {user._id === userProf._id && (
             <button className="edit-button2">
               <svg className="edit-svgIcon2" viewBox="0 0 512 512">
@@ -170,7 +161,6 @@ const ProfileU = () => {
               </svg>
             </button>
           )}
-
           <div className="center">
             <span>{`${userProf.firstName} ${userProf.lastName}`}</span>
             <div className="info">
@@ -180,18 +170,34 @@ const ProfileU = () => {
               </div>
               <div className="itemF">
                 <LanguageIcon />
-                {/* <span></span> */}
+                <span>{userProf.email}</span>
               </div>
             </div>
-            <button>follow</button>
-          </div>
-          <div className="right">
-            <EmailOutlinedIcon />
-            <MoreVertIcon />
+            {userProf._id !== user._id &&
+              (userFollower ? (
+                <FavoriteIcon
+                  style={{ color: "red" }}
+                  fontSize="large"
+                  onClick={() => {
+                    unFollow(userProf._id);
+                  }}
+                />
+              ) : (
+                <FavoriteBorderIcon
+                  fontSize="large"
+                  onClick={() => {
+                    follow(userProf._id);
+                  }}
+                />
+              ))}
+            <div className="spans">
+              <span>{userProf.followers.length} Followers</span>
+              <span>{userProf.following.length} Following</span>
+            </div>
           </div>
         </div>
       </div>
-      <Posts />
+      <Posts getUserById={getUserById} userProf={userProf} />
     </div>
   );
 };

@@ -66,21 +66,6 @@
   gap: 10px;
 }
 
-.buttons button {
-  border: none;
-  padding: 5px;
-  color: white;
-  cursor: pointer;
-}
-
-.buttons button:first-child {
-  background-color: #5271ff;
-}
-
-.buttons button:last-child {
-  background-color: #f0544f;
-}
-
 .online {
   width: 12px;
   height: 12px;
@@ -99,3 +84,12 @@
   font-weight: 500;
   color: themed("textColor");
 }
+
+.containerch input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+

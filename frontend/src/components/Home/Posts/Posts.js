@@ -12,10 +12,8 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Swal from "sweetalert2";
 import React, { useState, useContext, useEffect } from "react";
 import Likes from "../Likes/Likes";
-// import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
-// import ThumbUpAltRoundedIcon from "@mui/icons-material/ThumbUpAltRounded";
 
-const Posts = () => {
+const Posts = ({ getUserById, userProf}) => {
   const options = ["Delete", "Update"];
   const [articlesId, setArticlesId] = useState("");
   const [error, setError] = useState(null);
@@ -28,9 +26,7 @@ const Posts = () => {
     articles,
     userId,
     setUserId,
-    getUserById,
     setHomeProf,
-    userProf,
     getArticles,
   } = useContext(userData);
   //console.log(user);
@@ -44,6 +40,7 @@ const Posts = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   useEffect(() => {
     homeProf ? getArticlesByAuthor() : getArticles();
   }, []);

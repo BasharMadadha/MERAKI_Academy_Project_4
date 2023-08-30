@@ -11,7 +11,6 @@ export const userData = createContext();
 function App() {
   const userD = localStorage.getItem("uDATA");
   const homeProf1 = localStorage.getItem("homeProf1");
-  const [userProf, setUserProf] = useState({});
   const [userId, setUserId] = useState(localStorage.getItem("userId"));
   const [token, setToken] = useState(localStorage.getItem("token"));
   //console.log(token);
@@ -19,23 +18,11 @@ function App() {
   const [homeProf, setHomeProf] = useState(JSON.parse(homeProf1));
   const [user, setUser] = useState(JSON.parse(userD));
   //console.log(user._id);
-  
+
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
 
-  
-
-  const getUserById = async () => {
-    await axios
-      .get(`http://localhost:5000/users/${userId}`)
-      .then((res) => {
-        setUserProf(res.data.user);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  };
 
   const getArticlesByAuthor = async () => {
     setArticles([]);
@@ -64,16 +51,15 @@ function App() {
       });
   };
 
+
   return (
-    <div className="App" >
+    <div className="App">
       <userData.Provider
         value={{
           token,
           setToken,
           user,
           setUser,
-          userProf,
-          getUserById,
           getArticlesByAuthor,
           articles,
           setArticles,
@@ -82,7 +68,6 @@ function App() {
           userId,
           setUserId,
           getArticles,
-          
         }}
       >
         <Routes>

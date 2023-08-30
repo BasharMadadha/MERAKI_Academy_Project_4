@@ -11,12 +11,13 @@ import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import Avatar from "@mui/material/Avatar";
+import AvatarGroup from "@mui/material/AvatarGroup";
 
 const Likes = ({ article }) => {
-  const { token, getArticlesByAuthor, homeProf, getArticles,user } =
+  const { token, getArticlesByAuthor, homeProf, getArticles, user } =
     useContext(userData);
-    //console.log(userId);
-    const [toggel, setToggel] = useState(false);
+  //console.log(userId);
+  const [toggel, setToggel] = useState(false);
 
   const config = {
     headers: { Authorization: `Bearer ${token}` },
@@ -68,14 +69,34 @@ const Likes = ({ article }) => {
           }}
         />
       )}
+      {article.likes.length > 1 && (
+        <AvatarGroup
+          style={{ marginLeft: "7px" }}
+          total={article.likes.length}
+          onClick={() => {
+            setToggel((prv) => !prv);
+          }}
+        >
+          <Avatar
+            key={article.likes[0]._id}
+            alt={article.likes[0].userName}
+            src={article.likes[0].userPic}
+          />
+          <Avatar
+            key={article.likes[1]._id}
+            alt={article.likes[1].userName}
+            src={article.likes[1].userPic}
+          />
+        </AvatarGroup>
+      )}
+
       <span
         onClick={() => {
-          setToggel((prv)=>!prv)
-
+          setToggel((prv) => !prv);
         }}
         style={{ marginLeft: "5px" }}
       >
-        {article.likes.length} Likes
+        {article.likes.length <= 1 && article.likes.length} Likes
       </span>
       {toggel && (
         <Box className="box" sx={{ flexGrow: 1, maxWidth: 752 }}>

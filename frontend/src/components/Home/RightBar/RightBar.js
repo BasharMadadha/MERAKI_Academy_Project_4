@@ -3,9 +3,13 @@ import { useContext, useEffect, useState } from "react";
 import { userData } from "../../../App";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
-const RightBar = () => {
+const RightBar = ({ unFollow, follow, unFollow1, follow1 }) => {
   const [users, setUsers] = useState([]);
+  const [show, setShow] = useState(false);
+  const [followId, setfollowId] = useState("");
   const {
     token,
     getArticlesByAuthor,
@@ -28,7 +32,6 @@ const RightBar = () => {
     await axios
       .get(`http://localhost:5000/users/`, config)
       .then((res) => {
-        //console.log(res.data.users);
         setUsers(res.data.users);
       })
       .catch((error) => {
@@ -37,20 +40,24 @@ const RightBar = () => {
   };
 
   // Shuffling the users array
-  const shuffledUsers = [...users];
-  for (let i = shuffledUsers.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffledUsers[i], shuffledUsers[j]] = [shuffledUsers[j], shuffledUsers[i]];
-  }
+  // const shuffledUsers = [...users];
+  // for (let i = shuffledUsers.length - 1; i > 0; i--) {
+  //   const j = Math.floor(Math.random() * (i + 1));
+  //   [shuffledUsers[i], shuffledUsers[j]] = [shuffledUsers[j], shuffledUsers[i]];
+  // }
 
   return (
     <div className="rightBar">
       <div className="containerR">
         <div className="itemR">
           <span>Suggestions For You</span>
-          {shuffledUsers.map((user1) => {
+          {users.map((user1) => {
+            const userFollow = user1.followers.find(
+              (follow) => follow.user._id !== user._id
+            );
             return (
-              user1._id !== user._id && (
+              user1._id !== user._id &&
+              !userFollow && (
                 <div key={user1._id} className="userR">
                   <Link
                     to="/Profile"
@@ -74,15 +81,31 @@ const RightBar = () => {
                     </div>
                   </Link>
                   <div className="buttons">
-                    <button>follow</button>
-                    <button>dismiss</button>
+                    {show && user1._id === followId ? (
+                      <FavoriteIcon
+                        style={{ color: "red" }}
+                        onClick={() => {
+                          setShow(false);
+                          homeProf ? unFollow(user1._id) : unFollow1(user1._id);
+                          setfollowId(user1._id);
+                        }}
+                      />
+                    ) : (
+                      <FavoriteBorderIcon
+                        onClick={() => {
+                          setShow(true);
+                          homeProf ? follow(user1._id) : follow1(user1._id);
+                          setfollowId(user1._id);
+                        }}
+                      />
+                    )}
                   </div>
                 </div>
               )
             );
           })}
         </div>
-        <div className="itemR">
+        {/* <div className="itemR">
           <span>Latest Activities</span>
           {users.map((user) => {
             return (
@@ -96,10 +119,10 @@ const RightBar = () => {
               </div>
             );
           })}
-        </div>
+        </div> */}
         <div className="itemR">
           <span>Online Friends</span>
-          {shuffledUsers.map((user1) => {
+          {users.map((user1) => {
             return (
               user1._id !== user._id && (
                 <div key={user1._id} className="userR">
