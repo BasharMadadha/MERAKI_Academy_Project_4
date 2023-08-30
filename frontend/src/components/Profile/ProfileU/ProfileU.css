@@ -27,6 +27,7 @@
   right: 0;
   margin: auto;
   top: 200px;
+  z-index: 1;
 }
 
 .profileContainer {
@@ -34,9 +35,10 @@
 }
 .uInfo {
   height: 180px;
-  -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-  -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-  box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+  -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.4);
+  background-color: #fff;
   border-radius: 20px;
   padding: 50px;
   display: flex;
@@ -51,6 +53,7 @@
   -webkit-box-shadow: 0px 0px 15px 1px rgba(255, 255, 255, 0.082);
   -moz-box-shadow: 0px 0px 15px 1px rgba(255, 255, 255, 0.082);
   box-shadow: 0px 0px 15px 1px rgba(255, 255, 255, 0.082);
+  background-color: #202836;
   border-radius: 20px;
   padding: 50px;
   display: flex;
@@ -114,6 +117,7 @@
   right: 38%;
   top:78%;
   text-decoration: none !important;
+  z-index: 2;
 }
 
 .edit-svgIcon {

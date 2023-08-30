@@ -4,7 +4,7 @@
   top: 70px;
   height: calc(100vh - 70px);
   overflow: scroll;
-  background-color: rgb(243, 243, 243);
+  border-left: 1px solid rgba(128, 128, 128, 0.308);
 }
 
 .rightBar-dark {
@@ -13,7 +13,8 @@
   top: 70px;
   height: calc(100vh - 70px);
   overflow: scroll;
-  background-color: rgb(34, 33, 33);
+  background-color: #2f3b50;
+  border-left: 1px solid #283143;;
 }
 
 .rightBar::-webkit-scrollbar {
@@ -29,9 +30,10 @@
 }
 
 .itemR {
-  -webkit-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-  -moz-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-  box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
+  -webkit-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.4);
+  background-color: #fff;
   padding: 20px;
   margin-bottom: 20px;
   height: 210px;
@@ -43,6 +45,7 @@
   -webkit-box-shadow: 0px 0px 15px 1px rgba(255, 255, 255, 0.082);
   -moz-box-shadow: 0px 0px 15px 1px rgba(255, 255, 255, 0.082);
   box-shadow: 0px 0px 15px 1px rgba(255, 255, 255, 0.082);
+  background-color: #202836;;
   padding: 20px;
   margin-bottom: 20px;
   height: 210px;

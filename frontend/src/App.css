@@ -3,9 +3,13 @@
   margin: 0px;
 }
 
+.light{
+  background-color: #f4f4f4;
+  color: #344258;
+}
 
 .dark {
-  background-color: rgb(36, 36, 36);
+  background-color: #2f3b50;
   color: white;
 }
 

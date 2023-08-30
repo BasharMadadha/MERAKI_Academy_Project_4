@@ -76,7 +76,7 @@ const NavBar = ({ getUserById, getUserById1 }) => {
         )}
         <GridViewOutlinedIcon />
         <div className="search">
-          <SearchOutlinedIcon />
+          <SearchOutlinedIcon style={{ color:"black" }}/>
           <input style={{ color: darkM ? "white" : "black" }} type="text" placeholder="Search..." />
         </div>
       </div>

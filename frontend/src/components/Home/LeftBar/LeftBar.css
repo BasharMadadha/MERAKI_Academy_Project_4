@@ -3,8 +3,9 @@
   position: sticky;
   top: 70px;
   height: calc(100vh - 70px);
-  background-color: rgb(243, 243, 243);
+  background-color: #fff;
   overflow: scroll;
+  margin-top: 20px;
 }
 
 .leftBar-dark {
@@ -12,7 +13,7 @@
   position: sticky;
   top: 70px;
   height: calc(100vh - 70px);
-  background-color: rgb(34, 33, 33);
+  background-color: #202836;
   overflow: scroll;
 }
 

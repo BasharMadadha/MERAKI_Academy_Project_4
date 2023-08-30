@@ -57,12 +57,12 @@
 
 .postA {
   width: 100%;
-  -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.459);
-  -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.493);
-  box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.562);
+  -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.4);
   border-radius: 20px;
   padding: 20px ;
-  background-color: rgb(243, 243, 243);
+  background-color: #fff;
   position: relative;
   display: flex;
   margin-top: 20px;
@@ -76,7 +76,7 @@
   box-shadow: 0px 0px 15px 1px rgba(255, 255, 255, 0.082);
   border-radius: 20px;
   padding: 20px ;
-  background-color: rgb(34, 33, 33);
+  background-color: #202836;
   position: relative;
   display: flex;
   margin-top: 20px;

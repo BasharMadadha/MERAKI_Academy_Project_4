@@ -3,7 +3,7 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { userData } from "../../../App";
 import Gallery from "../../../image/icons/8.png";
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 
 const AddPost = () => {
@@ -67,7 +67,7 @@ const AddPost = () => {
               alt=""
               onClick={() => {
                 (async () => {
-                  const { value: file } = await Swal.fire({
+                  const { value: file } = await Swal.fire({  
                     title: "Select image",
                     input: "file",
                     inputAttributes: {

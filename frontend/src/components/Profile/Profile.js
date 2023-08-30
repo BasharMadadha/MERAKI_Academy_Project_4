@@ -55,7 +55,7 @@ const Profile = () => {
 
 
   return (
-    <div style={{ fontFamily: "sans-serif" }}>
+    <div style={{ fontFamily: "Roboto,-apple-system,system-ui,BlinkMacSystemFont,segoe ui,helvetica neue,Arial,sans-serif" }}>
       <NavBar getUserById={getUserById}/>
       <div style={{ display: "flex" }}>
         <LeftBar />

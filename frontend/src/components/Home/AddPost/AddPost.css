@@ -1,8 +1,10 @@
+@import "@sweetalert2/theme-wordpress-admin/wordpress-admin.css";
+
 .add-post {
-  -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-  -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-  box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-  background-color: rgb(243, 243, 243);
+  -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.4);
+  background-color: #fff;
   border-radius: 20px;
   margin: 20px;
 }
@@ -11,7 +13,7 @@
   -webkit-box-shadow: 0px 0px 15px 1px rgba(255, 255, 255, 0.082);
   -moz-box-shadow: 0px 0px 15px 1px rgba(255, 255, 255, 0.082);
   box-shadow: 0px 0px 15px 1px rgba(255, 255, 255, 0.082);
-  background-color: rgb(34, 33, 33);
+  background-color: #202836;
   border-radius: 20px;
   margin: 20px;
 }
@@ -47,7 +49,7 @@
   margin: 10px 0 5px 10px;
   display: inline-block;
   border: none;
-  background: #f1f1f1;
+  background: #fff;
   outline: none;
 }
 
@@ -58,7 +60,7 @@
   margin: 10px 0 5px 10px;
   display: inline-block;
   border: none;
-  background: rgb(33, 33, 33);
+  background: #202836;
   outline: none;
 }
 
@@ -101,7 +103,6 @@ button.learn-more .circle {
   background: #51547c;
   border-radius: 1.625rem;
 }
-
 
 button.learn-more .circle .icon {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);

@@ -53,7 +53,7 @@ const Home = () => {
 
 
   return (
-    <div style={{ fontFamily: "sans-serif" }}>
+    <div style={{ fontFamily: "Roboto,-apple-system,system-ui,BlinkMacSystemFont,segoe ui,helvetica neue,Arial,sans-serif" }}>
       <NavBar getUserById1={getUserById} />
       <div style={{ display: "flex" }}>
         <LeftBar />
