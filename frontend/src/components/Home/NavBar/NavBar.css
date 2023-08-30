@@ -10,6 +10,20 @@
   top: 0;
   z-index: 999;
 }
+
+.navbar-dark {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  height: 50px;
+  border-bottom: 1px solid darkgray;
+  position: sticky;
+  background-color: rgb(34, 33, 33);
+  top: 0;
+  z-index: 999;
+}
+
 .left {
   display: flex;
   align-items: center;
@@ -19,6 +33,12 @@
   font-weight: bold;
   font-size: 20px;
   color: darkblue;
+}
+
+.logo-dark {
+  font-weight: bold;
+  font-size: 20px;
+  color: lightblue;
 }
 
 .search {
@@ -62,16 +82,16 @@
   width: 18px;
 }
 
-.bell path {
+/* .bell path {
   fill: rgb(0, 0, 0);
-}
+} */
 
-.button:hover .bell {
+/* .button:hover .bell {
   animation: bellRing 0.9s both;
-}
+} */
 
 /* bell ringing animation keyframes*/
-@keyframes bellRing {
+/* @keyframes bellRing {
   0%,
   100% {
     transform-origin: top;
@@ -96,7 +116,7 @@
   75% {
     transform: rotateZ(2deg);
   }
-}
+} */
 
 .button:active {
   transform: scale(0.8);
@@ -114,8 +134,8 @@
   position: relative;
   overflow: hidden;
   transition-duration: .3s;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
-  background-color: rgb(255, 65, 65);
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.932);
+  background-color: rgb(250, 86, 86);
 }
 
 /* plus sign */

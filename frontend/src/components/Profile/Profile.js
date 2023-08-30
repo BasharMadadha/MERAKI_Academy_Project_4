@@ -1,4 +1,4 @@
-import "./Profile.css";
+
 import ProfileU from "./ProfileU/ProfileU";
 import LeftBar from "../Home/LeftBar/LeftBar";
 import RightBar from "../Home/RightBar/RightBar";
@@ -55,7 +55,7 @@ const Profile = () => {
 
 
   return (
-    <div>
+    <div style={{ fontFamily: "sans-serif" }}>
       <NavBar getUserById={getUserById}/>
       <div style={{ display: "flex" }}>
         <LeftBar />

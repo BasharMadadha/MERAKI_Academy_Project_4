@@ -6,7 +6,7 @@ import "./Comment.css";
 import Swal from "sweetalert2";
 
 const Comment = ({ article }) => {
-  const { token, user, getArticlesByAuthor, homeProf ,getArticles} = useContext(userData);
+  const { token, user, getArticlesByAuthor, homeProf ,getArticles,darkM} = useContext(userData);
 
   const config = {
     headers: { Authorization: `Bearer ${token}` },
@@ -51,7 +51,7 @@ const Comment = ({ article }) => {
     <div>
       {article.comments.map((comment) => {
         return (
-          <div key={comment._id} className="comment">
+          <div key={comment._id} className={darkM ? "comment-dark" : "comment"}>
             <div className="userInfoP">
               <img src={user.profilePicture} alt="" />
               <div className="detailsC">

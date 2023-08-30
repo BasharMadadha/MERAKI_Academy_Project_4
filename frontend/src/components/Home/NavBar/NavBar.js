@@ -30,6 +30,8 @@ const NavBar = ({ getUserById, getUserById1 }) => {
     setHomeProf,
     setUserId,
     homeProf,
+    darkM,
+    setDarkM,
   } = useContext(userData);
   const navigate = useNavigate();
 
@@ -43,10 +45,10 @@ const NavBar = ({ getUserById, getUserById1 }) => {
   };
 
   return (
-    <div className="navbar">
+    <div className={darkM ? "navbar-dark" : "navbar"}>
       <div className="left">
         <Link to="#" style={{ textDecoration: "none" }}>
-          <span className="logo">Logo</span>
+          <span className={darkM ? "logo-dark" : "logo"}>Logo</span>
         </Link>
         <Link
           to="/Home"
@@ -55,13 +57,27 @@ const NavBar = ({ getUserById, getUserById1 }) => {
             localStorage.setItem("homeProf1", JSON.stringify(false));
           }}
         >
-          <HomeOutlinedIcon />
+          <HomeOutlinedIcon style={{ color: darkM ? "white" : "black" }} />
         </Link>
-        {true ? <WbSunnyOutlinedIcon /> : <DarkModeOutlinedIcon />}
+        {darkM ? (
+          <DarkModeOutlinedIcon
+            onClick={() => {
+              setDarkM(false);
+              localStorage.setItem("darkMode", JSON.stringify(false))
+            }}
+          />
+        ) : (
+          <WbSunnyOutlinedIcon
+            onClick={() => {
+              setDarkM(true);
+              localStorage.setItem("darkMode", JSON.stringify(true))
+            }}
+          />
+        )}
         <GridViewOutlinedIcon />
         <div className="search">
           <SearchOutlinedIcon />
-          <input type="text" placeholder="Search..." />
+          <input style={{ color: darkM ? "white" : "black" }} type="text" placeholder="Search..." />
         </div>
       </div>
       <div className="right">

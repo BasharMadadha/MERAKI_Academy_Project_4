@@ -89,7 +89,6 @@ const Likes = ({ article }) => {
           />
         </AvatarGroup>
       )}
-
       <span
         onClick={() => {
           setToggel((prv) => !prv);

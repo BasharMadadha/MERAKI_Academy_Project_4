@@ -5,6 +5,13 @@
   border-radius: 10px;
 }
 
+.comment-dark {
+  background-color: rgb(61, 61, 61);
+  margin-top: 7px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
 .detailsC {
   display: flex;
   flex-direction: column;

@@ -2,8 +2,17 @@
   -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
   -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
   box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-  border-radius: 20px;
   background-color: rgb(243, 243, 243);
+  border-radius: 20px;
+  margin: 20px;
+}
+
+.add-post-dark {
+  -webkit-box-shadow: 0px 0px 15px 1px rgba(255, 255, 255, 0.082);
+  -moz-box-shadow: 0px 0px 15px 1px rgba(255, 255, 255, 0.082);
+  box-shadow: 0px 0px 15px 1px rgba(255, 255, 255, 0.082);
+  background-color: rgb(34, 33, 33);
+  border-radius: 20px;
   margin: 20px;
 }
 
@@ -25,8 +34,8 @@
 }
 
 .userInfoA img {
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -39,6 +48,17 @@
   display: inline-block;
   border: none;
   background: #f1f1f1;
+  outline: none;
+}
+
+.tt-dark {
+  width: 90%;
+  font-size: 17px;
+  padding: 22px;
+  margin: 10px 0 5px 10px;
+  display: inline-block;
+  border: none;
+  background: rgb(33, 33, 33);
   outline: none;
 }
 
@@ -71,16 +91,35 @@ button.learn-more .circle {
   border-radius: 1.625rem;
 }
 
+.circle-dark {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: relative;
+  display: block;
+  margin: 0;
+  width: 3rem;
+  height: 3rem;
+  background: #51547c;
+  border-radius: 1.625rem;
+}
+
+
 button.learn-more .circle .icon {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   position: absolute;
   top: 0;
   bottom: 0;
   margin: auto;
-  background: #fff;
 }
 
-button.learn-more .circle .icon.arrow {
+button.learn-more .circle-dark .icon {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.icon.arrow {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   left: 0.625rem;
   width: 1.125rem;
@@ -88,7 +127,7 @@ button.learn-more .circle .icon.arrow {
   background: none;
 }
 
-button.learn-more .circle .icon.arrow::before {
+.icon.arrow::before {
   position: absolute;
   content: "";
   top: -0.29rem;
@@ -109,7 +148,7 @@ button.learn-more .button-text {
   bottom: 0;
   padding: 0.75rem 0;
   margin: 0 0 0 1.85rem;
-  color: #282936;
+  color: #272835;
   font-weight: 700;
   line-height: 1.6;
   text-align: center;
@@ -120,7 +159,11 @@ button:hover .circle {
   width: 100%;
 }
 
-button:hover .circle .icon.arrow {
+button:hover .circle-dark {
+  width: 100%;
+}
+
+button:hover .icon.arrow {
   background: #fff;
   transform: translate(1rem, 0);
 }

@@ -16,10 +16,10 @@ import { useContext } from "react";
 import { userData } from "../../../App";
 
 const LeftBar = () => {
-  const { user } = useContext(userData);
+  const { user , darkM} = useContext(userData);
 
   return (
-    <div className="leftBar">
+    <div className={darkM ? "leftBar-dark" : "leftBar"}>
       <div className="container">
         <div className="menu">
           <div className="user">

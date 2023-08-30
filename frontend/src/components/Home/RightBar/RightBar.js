@@ -18,6 +18,7 @@ const RightBar = ({ unFollow, follow, unFollow1, follow1 }) => {
     setHomeProf,
     homeProf,
     user,
+    darkM
   } = useContext(userData);
 
   const config = {
@@ -38,6 +39,7 @@ const RightBar = ({ unFollow, follow, unFollow1, follow1 }) => {
         console.log(error);
       });
   };
+  //console.log(users);
 
   // Shuffling the users array
   // const shuffledUsers = [...users];
@@ -47,9 +49,9 @@ const RightBar = ({ unFollow, follow, unFollow1, follow1 }) => {
   // }
 
   return (
-    <div className="rightBar">
+    <div className={darkM ? "rightBar-dark" : "rightBar"}>
       <div className="containerR">
-        <div className="itemR">
+        <div className={darkM ? "itemR-dark" : "itemR"}>
           <span>Suggestions For You</span>
           {users.map((user1) => {
             const userFollow = user1.followers.find(
@@ -120,11 +122,13 @@ const RightBar = ({ unFollow, follow, unFollow1, follow1 }) => {
             );
           })}
         </div> */}
-        <div className="itemR">
+        <div className={darkM ? "itemR-dark" : "itemR"}>
           <span>Online Friends</span>
           {users.map((user1) => {
+          const followersU =  user1.followers.find((follow) => follow.user === user._id) 
+          const followingU =  user1.following.find((follow) => follow.user === user._id) 
             return (
-              user1._id !== user._id && (
+              user1._id !== user._id && followersU && followingU&& (
                 <div key={user1._id} className="userR">
                   <div className="userInfo">
                     <img src={user1.profilePicture} alt="" />

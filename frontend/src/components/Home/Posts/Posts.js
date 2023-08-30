@@ -28,6 +28,7 @@ const Posts = ({ getUserById, userProf}) => {
     setUserId,
     setHomeProf,
     getArticles,
+    darkM
   } = useContext(userData);
   //console.log(user);
 
@@ -77,7 +78,7 @@ const Posts = ({ getUserById, userProf}) => {
         <div className="containerP">
           {articles.map((article) => {
             return (
-              <div key={article._id} className="postA">
+              <div key={article._id} className={darkM ? "postA-dark" : "postA"}>
                 <div className="userP">
                   <Link
                     to="/Profile"
@@ -142,7 +143,7 @@ const Posts = ({ getUserById, userProf}) => {
                           setArticlesId(article._id);
                         }}
                       >
-                        <MoreVertIcon />
+                        <MoreVertIcon style={{color:"gray"}}/>
                       </IconButton>
                       {article._id === articlesId && (
                         <Menu

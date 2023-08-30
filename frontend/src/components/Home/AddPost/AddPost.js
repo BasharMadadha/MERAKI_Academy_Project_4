@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 const AddPost = () => {
   const [description, setDescription] = useState("");
   const [pic, setPic] = useState("");
-  const { token, user,getArticles } = useContext(userData);
+  const { token, user,getArticles ,darkM} = useContext(userData);
   const [loading, setLoading] = useState(false);
 
   const config = {
@@ -47,14 +47,14 @@ const AddPost = () => {
   };
 
   return (
-    <div className="add-post">
+    <div className={darkM ? "add-post-dark" : "add-post"}>
       <div className="containerA">
         <div className="userA">
           <div className="userInfoA">
             <img src={user.profilePicture} alt="" />
           </div>
           <input
-            className="tt"
+            className={darkM ? "tt-dark" : "tt"}
             placeholder={`What's on your mind ${user.firstName} ...`}
             value={description}
             onChange={(e) => {
@@ -122,7 +122,7 @@ const AddPost = () => {
                 });
             }}
           >
-            <span className="circle" aria-hidden="true">
+            <span className={darkM ? "circle-dark" : "circle"} aria-hidden="true">
               <span className="icon arrow"></span>
             </span>
             <span className="button-text">Share</span>

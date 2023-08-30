@@ -11,18 +11,19 @@ export const userData = createContext();
 function App() {
   const userD = localStorage.getItem("uDATA");
   const homeProf1 = localStorage.getItem("homeProf1");
+  const darkMode = localStorage.getItem("darkMode");
   const [userId, setUserId] = useState(localStorage.getItem("userId"));
   const [token, setToken] = useState(localStorage.getItem("token"));
   //console.log(token);
   const [articles, setArticles] = useState([]);
   const [homeProf, setHomeProf] = useState(JSON.parse(homeProf1));
   const [user, setUser] = useState(JSON.parse(userD));
+  const [darkM, setDarkM] = useState(JSON.parse(darkMode));
   //console.log(user._id);
 
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
-
 
   const getArticlesByAuthor = async () => {
     setArticles([]);
@@ -51,9 +52,8 @@ function App() {
       });
   };
 
-
   return (
-    <div className="App">
+    <div className={darkM ?"dark" : "light"}>
       <userData.Provider
         value={{
           token,
@@ -68,6 +68,8 @@ function App() {
           userId,
           setUserId,
           getArticles,
+          darkM,
+          setDarkM,
         }}
       >
         <Routes>

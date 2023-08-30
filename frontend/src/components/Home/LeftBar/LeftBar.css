@@ -7,7 +7,20 @@
   overflow: scroll;
 }
 
+.leftBar-dark {
+  flex: 2;
+  position: sticky;
+  top: 70px;
+  height: calc(100vh - 70px);
+  background-color: rgb(34, 33, 33);
+  overflow: scroll;
+}
+
 .leftBar::-webkit-scrollbar {
+  display: none;
+}
+
+.leftBar-dark::-webkit-scrollbar {
   display: none;
 }
 

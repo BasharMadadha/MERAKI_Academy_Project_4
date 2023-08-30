@@ -21,7 +21,7 @@ import Swal from "sweetalert2";
 import Posts from "../../Home/Posts/Posts";
 
 const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
-  const { user } = useContext(userData);
+  const { user ,darkM} = useContext(userData);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -184,7 +184,7 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
         )}
       </div>
       <div className="profileContainer">
-        <div className="uInfo">
+        <div className={darkM ? "uInfo-dark" : "uInfo"}>
           {user._id === userProf._id && (
             <button className="edit-button2">
               <svg className="edit-svgIcon2" viewBox="0 0 512 512">
