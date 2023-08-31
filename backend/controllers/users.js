@@ -133,9 +133,9 @@ const getAllUsers = (req, res) => {
     });
 };
 
-const getUserById = (req, res) => {
+const getUserById = async (req, res) => {
   let id = req.params.id;
-  usersModel
+ await usersModel
     .findById(id)
     .then((user) => {
       if (!user) {
