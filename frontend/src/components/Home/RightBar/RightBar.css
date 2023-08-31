@@ -120,12 +120,21 @@
   width: 0;
 }
 
-@media (350px <= width <= 500px) {
+@media screen and  (max-width:1024px) {
   .rightBar-dark{
-    flex: none;
+    display: none;
   }
   .rightBar{
-    flex: none;
+    display: none;
   }
+}
 
+
+@media screen and  (max-width :700px) {
+  .rightBar-dark{
+    display: none;
+  }
+  .rightBar{
+    display: none;
+  }
 }

@@ -18,7 +18,7 @@ const RightBar = ({ unFollow, follow, unFollow1, follow1 }) => {
     setHomeProf,
     homeProf,
     user,
-    darkM
+    darkM,
   } = useContext(userData);
 
   const config = {
@@ -39,7 +39,6 @@ const RightBar = ({ unFollow, follow, unFollow1, follow1 }) => {
         console.log(error);
       });
   };
-  //console.log(users);
 
   // Shuffling the users array
   // const shuffledUsers = [...users];
@@ -107,35 +106,43 @@ const RightBar = ({ unFollow, follow, unFollow1, follow1 }) => {
             );
           })}
         </div>
-        {/* <div className="itemR">
-          <span>Latest Activities</span>
-          {users.map((user) => {
-            return (
-              <div key={user._id} className="userR">
-                <div className="userInfo">
-                  <img src={user.profilePicture} alt="" />
-                  <span>{`${user.firstName} ${user.lastName}`}</span>
-                  <p>changed their cover picture</p>
-                </div>
-                <span>1 min ago</span>
-              </div>
-            );
-          })}
-        </div> */}
         <div className={darkM ? "itemR-dark" : "itemR"}>
           <span>Online Friends</span>
           {users.map((user1) => {
-          const followersU =  user1.followers.find((follow) => follow.user === user._id) 
-          const followingU =  user1.following.find((follow) => follow.user === user._id) 
+            const followersU = user1.followers.find(
+              (follow) => follow.user === user._id
+            );
+            const followingU = user1.following.find(
+              (follow) => follow.user === user._id
+            );
             return (
-              user1._id !== user._id && followersU && followingU&& (
-                <div key={user1._id} className="userR">
-                  <div className="userInfo">
-                    <img src={user1.profilePicture} alt="" />
-                    <div className="online" />
-                    <span>{`${user1.firstName} ${user1.lastName}`}</span>
+              user1._id !== user._id &&
+              followersU &&
+              followingU && (
+                <Link
+                  to="/Profile"
+                  onClick={() => {
+                    if (homeProf) {
+                      setUserId(user1._id);
+                      localStorage.setItem("userId", user1._id);
+                      getUserById();
+                      getArticlesByAuthor();
+                    }
+                    setHomeProf(true);
+                    setUserId(user1._id);
+                    localStorage.setItem("userId", user1._id);
+                    localStorage.setItem("homeProf1", JSON.stringify(true));
+                  }}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <div key={user1._id} className="userR">
+                    <div className="userInfo">
+                      <img src={user1.profilePicture} alt="" />
+                      <div className="online" />
+                      <span>{`${user1.firstName} ${user1.lastName}`}</span>
+                    </div>
                   </div>
-                </div>
+                </Link>
               )
             );
           })}

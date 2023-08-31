@@ -1,15 +1,14 @@
-.Home {
+.pagePr {
   font-family: Roboto, -apple-system, system-ui, BlinkMacSystemFont, segoe ui,
     helvetica neue, Arial, sans-serif;
 }
 
-.mid {
+.midP {
   flex: 6;
 }
 
-
 @media screen and (350px <= width <= 600px) {
-  .mid {
+  .midP {
     display: flex;
     flex-direction: column;
     width: 100%;

@@ -55,11 +55,11 @@ const Profile = () => {
 
 
   return (
-    <div style={{ fontFamily: "Roboto,-apple-system,system-ui,BlinkMacSystemFont,segoe ui,helvetica neue,Arial,sans-serif" }}>
+    <div className="pagePr">
       <NavBar getUserById={getUserById}/>
       <div style={{ display: "flex" }}>
         <LeftBar />
-        <div style={{ flex: 6 }}>
+        <div className="midP">
           <ProfileU getUserById={getUserById} userProf={userProf} follow={follow} unFollow={unFollow}/>
         </div>
         <RightBar follow={follow} unFollow={unFollow}/>

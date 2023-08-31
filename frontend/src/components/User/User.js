@@ -11,7 +11,7 @@ const User = () => {
   return (
     <div className="SignupC">
       <div className="textD">
-        <h2>Sign Up to<br/> get your <br/>ideas</h2>
+        {/* <h2>Sign Up to<br/> get your <br/>ideas</h2> */}
       </div>
       <div className="SignupM">
         <div className="Signup">

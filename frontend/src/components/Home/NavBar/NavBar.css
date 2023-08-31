@@ -190,12 +190,21 @@
   transform: translate(2px ,2px);
 }
 
-
-@media (350px <= width <= 500px) {
+@media screen and  (max-width:1024px) {
   .navbar-dark{
-    flex: none;
+    display: none;
   }
   .navbar{
-    flex: none;
+    display: none;
+  }
+}
+
+
+@media screen and  (max-width :600px) {
+  .navbar-dark{
+    display: none;
+  }
+  .navbar{
+    display: none;
   }
 }

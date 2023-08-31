@@ -70,12 +70,22 @@
   font-size: 14px;
 }
 
-@media (350px <= width <= 500px) {
+
+@media screen and  (max-width:1024px) {
   .leftBar-dark{
-    flex: none;
+    display: none;
   }
   .leftBar{
-    flex: none;
+    display: none;
   }
+}
 
+
+@media screen and  (max-width :600px) {
+  .leftBar-dark{
+    display: none;
+  }
+  .leftBar{
+    display: none;
+  }
 }

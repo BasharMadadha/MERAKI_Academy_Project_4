@@ -61,7 +61,7 @@
   -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.4);
   box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.4);
   border-radius: 20px;
-  padding: 20px ;
+  padding: 20px;
   background-color: #fff;
   position: relative;
   display: flex;
@@ -75,7 +75,7 @@
   -moz-box-shadow: 0px 0px 15px 1px rgba(255, 255, 255, 0.082);
   box-shadow: 0px 0px 15px 1px rgba(255, 255, 255, 0.082);
   border-radius: 20px;
-  padding: 20px ;
+  padding: 20px;
   background-color: #202836;
   position: relative;
   display: flex;
@@ -83,7 +83,7 @@
   flex-direction: column;
 }
 
-.menuP{
+.menuP {
   position: absolute;
   right: 0;
 }

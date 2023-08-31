@@ -35,7 +35,7 @@ const NavBar = ({ getUserById, getUserById1 }) => {
     homeProf,
     darkM,
     setDarkM,
-    token
+    token,
   } = useContext(userData);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -79,7 +79,7 @@ const NavBar = ({ getUserById, getUserById1 }) => {
       .delete(`http://localhost:5000/users/notifications/${id}`, config)
       .then((res) => {
         console.log(res);
-        getUserById2(user._id)
+        getUserById2(user._id);
       })
       .catch((error) => {
         console.log(error.message);
