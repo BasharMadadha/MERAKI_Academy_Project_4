@@ -6,6 +6,8 @@ import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
@@ -17,8 +19,9 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { userData } from "../../../App";
 import Badge from "@mui/material/Badge";
 
@@ -32,8 +35,15 @@ const NavBar = ({ getUserById, getUserById1 }) => {
     homeProf,
     darkM,
     setDarkM,
+    token
   } = useContext(userData);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+
+  const [userNav, setUserNav] = useState();
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -43,6 +53,49 @@ const NavBar = ({ getUserById, getUserById1 }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    getUserById2(user._id)
+      .then(() => setLoading(false))
+      .catch((error) => {
+        console.error("Error fetching user profile:", error);
+        setLoading(false);
+      });
+  }, [user._id]);
+
+  const getUserById2 = async (id) => {
+    await axios
+      .get(`http://localhost:5000/users/${id}`)
+      .then((res) => {
+        setUserNav(res.data.user);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
+  const deleteNoti = async (id) => {
+    await axios
+      .delete(`http://localhost:5000/users/notifications/${id}`, config)
+      .then((res) => {
+        console.log(res);
+        getUserById2(user._id)
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
+  if (loading) {
+    return (
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    );
+  }
 
   return (
     <div className={darkM ? "navbar-dark" : "navbar"}>
@@ -63,27 +116,27 @@ const NavBar = ({ getUserById, getUserById1 }) => {
           <DarkModeOutlinedIcon
             onClick={() => {
               setDarkM(false);
-              localStorage.setItem("darkMode", JSON.stringify(false))
+              localStorage.setItem("darkMode", JSON.stringify(false));
             }}
           />
         ) : (
           <WbSunnyOutlinedIcon
             onClick={() => {
               setDarkM(true);
-              localStorage.setItem("darkMode", JSON.stringify(true))
+              localStorage.setItem("darkMode", JSON.stringify(true));
             }}
           />
         )}
         <GridViewOutlinedIcon />
         <div className="search">
-          <SearchOutlinedIcon style={{ color:"black" }}/>
-          <input style={{ color: darkM ? "white" : "black" }} type="text" placeholder="Search..." />
+          <SearchOutlinedIcon style={{ color: "black" }} />
+          <input type="text" placeholder="Search..." />
         </div>
       </div>
       <div className="right">
         <EmailOutlinedIcon />
         <div onClick={() => {}}>
-          <Badge badgeContent={user.notifications.length} color="error">
+          <Badge badgeContent={userNav.notifications.length} color="error">
             <React.Fragment>
               <Box
                 sx={{
@@ -118,10 +171,13 @@ const NavBar = ({ getUserById, getUserById1 }) => {
                 transformOrigin={{ horizontal: "right", vertical: "top" }}
                 anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
               >
-                {user.notifications.map((noti) => {
+                {userNav.notifications.map((noti) => {
                   return (
                     <div key={noti._id}>
                       <List
+                        onClick={() => {
+                          deleteNoti(noti._id);
+                        }}
                         sx={{
                           width: "100%",
                           maxWidth: 360,
@@ -172,9 +228,9 @@ const NavBar = ({ getUserById, getUserById1 }) => {
             navigate("/Profile");
           }}
         >
-          <img src={user.profilePicture} alt="" />
+          <img src={userNav.profilePicture} alt="" />
           <span>
-            {user.firstName} {user.lastName}
+            {userNav.firstName} {userNav.lastName}
           </span>
         </div>
         <button

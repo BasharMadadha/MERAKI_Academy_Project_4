@@ -1,6 +1,8 @@
 import "./Posts.css";
 import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { userData } from "../../../App";
@@ -13,11 +15,11 @@ import Swal from "sweetalert2";
 import React, { useState, useContext, useEffect } from "react";
 import Likes from "../Likes/Likes";
 
-const Posts = ({ getUserById, userProf}) => {
+const Posts = ({ getUserById, userProf }) => {
   const options = ["Delete", "Update"];
   const [articlesId, setArticlesId] = useState("");
-  const [error, setError] = useState(null);
   const [commentUP, setCommentUP] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const {
     user,
@@ -28,7 +30,7 @@ const Posts = ({ getUserById, userProf}) => {
     setUserId,
     setHomeProf,
     getArticles,
-    darkM
+    darkM,
   } = useContext(userData);
   //console.log(user);
 
@@ -43,7 +45,19 @@ const Posts = ({ getUserById, userProf}) => {
   };
 
   useEffect(() => {
-    homeProf ? getArticlesByAuthor() : getArticles();
+    homeProf
+      ? getArticlesByAuthor()
+          .then(() => setLoading(false))
+          .catch((error) => {
+            console.error("Error fetching user profile:", error);
+            setLoading(false);
+          })
+      : getArticles()
+          .then(() => setLoading(false))
+          .catch((error) => {
+            console.error("Error fetching user profile:", error);
+            setLoading(false);
+          });
   }, []);
 
   const DeleteArticle = async (id) => {
@@ -53,7 +67,7 @@ const Posts = ({ getUserById, userProf}) => {
         homeProf ? getArticlesByAuthor() : getArticles();
       })
       .catch((error) => {
-        setError(error);
+        console.log(error);
       });
   };
 
@@ -66,11 +80,20 @@ const Posts = ({ getUserById, userProf}) => {
         homeProf ? getArticlesByAuthor() : getArticles();
       })
       .catch((error) => {
-        setError(error);
+        console.log(error);
       });
   };
 
-  if (error) return `Error: ${error.message}`;
+  if (loading) {
+    return (
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    );
+  }
 
   return (
     <div>
@@ -125,7 +148,6 @@ const Posts = ({ getUserById, userProf}) => {
                   <Comment
                     article={article}
                     getArticles={getArticles}
-                    setError={setError}
                   />
                 )}
 
@@ -143,7 +165,7 @@ const Posts = ({ getUserById, userProf}) => {
                           setArticlesId(article._id);
                         }}
                       >
-                        <MoreVertIcon style={{color:"gray"}}/>
+                        <MoreVertIcon style={{ color: "gray" }} />
                       </IconButton>
                       {article._id === articlesId && (
                         <Menu

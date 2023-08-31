@@ -4,6 +4,8 @@ import axios from "axios";
 import { userData } from "../../../App";
 import Gallery from "../../../image/icons/8.png";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const AddPost = () => {
@@ -131,8 +133,13 @@ const AddPost = () => {
         </div>
       </div>
       <div>
-      {loading && <div className="loader">Loading...</div>}
     </div>
+    <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </div>
   );
 };

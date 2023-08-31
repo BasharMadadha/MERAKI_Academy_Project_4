@@ -8,6 +8,8 @@ import PlaceIcon from "@mui/icons-material/Place";
 import LanguageIcon from "@mui/icons-material/Language";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -54,6 +56,7 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
   };
 
   const processFile = async (files, boolean) => {
+    setLoading(true)
     const CLOUD_NAME = "dv7ygzpv8";
     const UNSIGNED_UPLOAD_PRESET = "dpybqbgc";
     const file = files;
@@ -80,6 +83,7 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
       .catch((err) => {
         console.log(err);
       });
+      setLoading(false)
   };
 
   const UpdateUserP = async (id, profilePicture) => {
@@ -121,8 +125,14 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
       })
       .catch((error) => {});
   };
+  
   if (loading) {
-    return <p>Loading...</p>;
+    return  <Backdrop
+    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+    open={loading}
+  >
+    <CircularProgress color="inherit" />
+  </Backdrop>;
   }
   const userFollower = userProf.followers.find(
     (follow) => follow.user === user._id

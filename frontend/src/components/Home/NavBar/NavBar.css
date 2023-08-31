@@ -189,3 +189,13 @@
 .Btn:active {
   transform: translate(2px ,2px);
 }
+
+
+@media (350px <= width <= 500px) {
+  .navbar-dark{
+    flex: none;
+  }
+  .navbar{
+    flex: none;
+  }
+}

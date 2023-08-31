@@ -11,7 +11,7 @@ const User = () => {
   return (
     <div className="SignupC">
       <div className="textD">
-        <h2>sign up</h2>
+        <h2>Sign Up to<br/> get your <br/>ideas</h2>
       </div>
       <div className="SignupM">
         <div className="Signup">
@@ -33,7 +33,7 @@ const User = () => {
                 setToggel(false);
               }}
             >
-              sign In
+              Sign In
             </button>
           </div>
           {register ? <Register setRegister={setRegister} setToggel={setToggel}/> : <Login />}

@@ -1,3 +1,4 @@
+import "./Home.css"
 import LeftBar from "./LeftBar/LeftBar";
 import NavBar from "./NavBar/NavBar";
 import RightBar from "./RightBar/RightBar";
@@ -53,11 +54,11 @@ const Home = () => {
 
 
   return (
-    <div style={{ fontFamily: "Roboto,-apple-system,system-ui,BlinkMacSystemFont,segoe ui,helvetica neue,Arial,sans-serif" }}>
-      <NavBar getUserById1={getUserById} />
+    <div className="Home" >
+      <NavBar getUserById1={getUserById}/>
       <div style={{ display: "flex" }}>
         <LeftBar />
-        <div style={{ flex: 6 }}>
+        <div className="mid">
           <AddPost />
           <Posts userProf={userProf}/>
         </div>

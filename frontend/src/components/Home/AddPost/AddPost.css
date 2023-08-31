@@ -50,6 +50,7 @@
   display: inline-block;
   border: none;
   background: #fff;
+  color:black;
   outline: none;
 }
 
@@ -60,6 +61,7 @@
   margin: 10px 0 5px 10px;
   display: inline-block;
   border: none;
+  color: white;
   background: #202836;
   outline: none;
 }
@@ -193,10 +195,3 @@ button:hover .button-text {
   object-fit: cover;
 }
 
-.loader {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  font-size: 1.5rem;
-}

@@ -120,3 +120,12 @@
   width: 0;
 }
 
+@media (350px <= width <= 500px) {
+  .rightBar-dark{
+    flex: none;
+  }
+  .rightBar{
+    flex: none;
+  }
+
+}

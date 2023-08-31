@@ -5,6 +5,7 @@
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  text-align: center;
 }
 
 .SignupM {
@@ -21,10 +22,14 @@
 }
 
 .textD {
+  display: flex;
+  justify-content: center;
+  text-align: left;
   align-self: center;
-  font-size: 40px;
+  font-size: 50px;
   font-family: serif;
   font-weight: bold;
+  color: white;
 }
 
 .toggel {
@@ -64,4 +69,19 @@
   border: 0;
   outline: none;
   border-radius: 30px;
+}
+
+@media (350px <= width <= 600px) {
+  .SignupC{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .Signup{
+    width: 90%;
+    height: 100%;
+  }
+  .textD{
+    font-size: 35px;
+  }
 }

@@ -43,7 +43,7 @@ const Register = ({ setRegister ,setToggel}) => {
       <TextField
         //onClick={()=>setErrfirstName((pr)=>!pr)}
         //error={errfirstName}
-        sx={{ m: 1, width: "25ch" }}
+        sx={{ m: 1, width: "46%" }}
         id="filled-firstName-flexible"
         label="First Name"
         name="firstName"
@@ -53,7 +53,7 @@ const Register = ({ setRegister ,setToggel}) => {
         onChange={handleChange}
       />
       <TextField
-        sx={{ m: 1, width: "25ch" }}
+        sx={{ m: 1, width: "46%" }}
         id="filled-lastName-flexible"
         label="Last Name"
         name="lastName"
@@ -63,7 +63,7 @@ const Register = ({ setRegister ,setToggel}) => {
         onChange={handleChange}
       />
       <TextField
-        sx={{ m: 1, width: "25ch" }}
+        sx={{ m: 1, width: "46%" }}
         id="filled-age-flexible"
         label="Age"
         //error={err}
@@ -75,7 +75,7 @@ const Register = ({ setRegister ,setToggel}) => {
         onChange={handleChange}
       />
       <TextField
-        sx={{ m: 1, width: "25ch" }}
+        sx={{ m: 1, width: "46%" }}
         id="filled-country-flexible"
         label="Country"
         name="country"
@@ -85,7 +85,7 @@ const Register = ({ setRegister ,setToggel}) => {
         value={userData.country}
         onChange={handleChange}
       />
-      <FormControl sx={{ m: 1, width: "52ch" }} variant="filled">
+      <FormControl sx={{ m: 1, width: "92%" }} variant="filled">
         <InputLabel>Email</InputLabel>
         <FilledInput
           //error={userData.email.length === 0 ? true : false}
@@ -104,7 +104,7 @@ const Register = ({ setRegister ,setToggel}) => {
         />
       </FormControl>
       <br />
-      <FormControl sx={{ m: 1, width: "52ch" }} variant="filled">
+      <FormControl sx={{ m: 1, width: "92%" }} variant="filled">
         <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
         <FilledInput
           value={userData.password}

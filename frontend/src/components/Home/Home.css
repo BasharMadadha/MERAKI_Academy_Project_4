@@ -1,0 +1,17 @@
+.Home {
+  font-family: Roboto, -apple-system, system-ui, BlinkMacSystemFont, segoe ui,
+    helvetica neue, Arial, sans-serif;
+}
+
+.mid {
+  flex: 6;
+}
+
+@media (350px <= width <= 600px) {
+  .mid {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+  }
+}
