@@ -32,7 +32,6 @@ const Profile = () => {
     await axios
       .post(`http://localhost:5000/users/follow/${id}`, true, config)
       .then((res) => {
-        //console.log(res);
         homeProf ? getUserById() : getArticles();
       })
       .catch((error) => {
@@ -44,14 +43,12 @@ const Profile = () => {
     await axios
       .delete(`http://localhost:5000/users/follow/${id}`, config)
       .then((res) => {
-        console.log(res);
         homeProf ? getUserById() : getArticles();
       })
       .catch((error) => {
         console.log(error);
       });
   };
-
 
   return (
     <div className="pagePr">

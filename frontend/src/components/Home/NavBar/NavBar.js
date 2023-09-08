@@ -179,6 +179,7 @@ const NavBar = ({ getUserById, getUserById1 }) => {
                           width: "100%",
                           maxWidth: 360,
                           bgcolor: "background.paper",
+                          cursor:"pointer"
                         }}
                       >
                         <ListItem alignItems="flex-start">
@@ -195,11 +196,9 @@ const NavBar = ({ getUserById, getUserById1 }) => {
                                   variant="body2"
                                   color="text.primary"
                                 >
-                                  Follow you
+                                  {noti.stat}
                                 </Typography>
-                                {
-                                  " — You've got a new follower. Keep up the great work!"
-                                }
+                                {noti.mess}
                               </React.Fragment>
                             }
                           />
@@ -220,7 +219,7 @@ const NavBar = ({ getUserById, getUserById1 }) => {
             localStorage.setItem("homeProf1", JSON.stringify(true));
             setUserId(user._id);
             localStorage.setItem("userId", user._id);
-             homeProf ? getUserById() : getUserById1();
+            homeProf ? getUserById() : getUserById1();
             getArticlesByAuthor();
             navigate("/Profile");
           }}

@@ -61,7 +61,7 @@ const Comment = ({ article,userPost }) => {
                 <Link style={{ textDecoration: "none", color: "inherit" }}>
                   <span className="nameC">{`${userComment.firstName} ${userComment.lastName}`}</span>
                 </Link>
-                <span className="dateC">1 min ago</span>
+                <span className="dateC">{comment.commentDate}</span>
               </div>
               <span>{comment.comment}</span>
             </div>

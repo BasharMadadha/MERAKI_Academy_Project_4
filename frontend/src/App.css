@@ -6,10 +6,14 @@
 .light{
   background-color: #f4f4f4;
   color: #344258;
+  font-family: Roboto, -apple-system, system-ui, BlinkMacSystemFont, segoe ui,
+  helvetica neue, Arial, sans-serif;
 }
 
 .dark {
   background-color: #2f3b50;
   color: white;
+  font-family: Roboto, -apple-system, system-ui, BlinkMacSystemFont, segoe ui,
+  helvetica neue, Arial, sans-serif;
 }
 

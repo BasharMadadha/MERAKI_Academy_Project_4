@@ -8,8 +8,8 @@ import PlaceIcon from "@mui/icons-material/Place";
 import LanguageIcon from "@mui/icons-material/Language";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -23,7 +23,7 @@ import Swal from "sweetalert2";
 import Posts from "../../Home/Posts/Posts";
 
 const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
-  const { user ,darkM ,token} = useContext(userData);
+  const { user, darkM, token } = useContext(userData);
   const [loading, setLoading] = useState(true);
   const [userPost, setUserPost] = useState([]);
 
@@ -32,18 +32,20 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
   };
 
   useEffect(() => {
-    getUsers()
-    .then(() => setLoading(false))
-      .catch((error) => {
-        console.error("Error fetching user profile:", error);
-        setLoading(false);
-      });
-    getUserById()
-      .then(() => setLoading(false))
-      .catch((error) => {
-        console.error("Error fetching user profile:", error);
-        setLoading(false);
-      });
+    setTimeout(() => {
+      getUsers()
+        .then(() => setLoading(false))
+        .catch((error) => {
+          console.error("Error fetching user profile:", error);
+          setLoading(false);
+        });
+      getUserById()
+        .then(() => setLoading(false))
+        .catch((error) => {
+          console.error("Error fetching user profile:", error);
+          setLoading(false);
+        });
+    }, 250);
   }, []);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -67,7 +69,7 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
   };
 
   const processFile = async (files, boolean) => {
-    setLoading(true)
+    setLoading(true);
     const CLOUD_NAME = "dv7ygzpv8";
     const UNSIGNED_UPLOAD_PRESET = "dpybqbgc";
     const file = files;
@@ -94,7 +96,7 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
       .catch((err) => {
         console.log(err);
       });
-      setLoading(false)
+    setLoading(false);
   };
 
   const UpdateUserP = async (id, profilePicture) => {
@@ -147,15 +149,18 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
         console.log(error);
       });
   };
-  
+
   if (loading) {
-    return  <Backdrop
-    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-    open={loading}
-  >
-    <CircularProgress color="inherit" />
-  </Backdrop>;
+    return (
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    );
   }
+
   const userFollower = userProf.followers.find(
     (follow) => follow.user === user._id
   );
@@ -239,7 +244,7 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
             {userProf._id !== user._id &&
               (userFollower ? (
                 <FavoriteIcon
-                  style={{ color: "red" }}
+                  style={{ color: "red", cursor: "pointer" }}
                   fontSize="large"
                   onClick={() => {
                     unFollow(userProf._id);
@@ -247,13 +252,14 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
                 />
               ) : (
                 <FavoriteBorderIcon
+                  style={{ cursor: "pointer" }}
                   fontSize="large"
                   onClick={() => {
                     follow(userProf._id);
                   }}
                 />
               ))}
-            <div className="spans" style={{display:"flex"}}>
+            <div className="spans" style={{ display: "flex" }}>
               <React.Fragment>
                 <Box
                   sx={{
@@ -284,34 +290,37 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
                   transformOrigin={{ horizontal: "right", vertical: "top" }}
                   anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                 >
-                  {userProf.followers.length>=0&&  userProf.followers.map((follow) => {
-                    const userFf = userPost.find(
-                      (user1) => follow.user === user1._id
-                    );
-                    return (
-                      <div key={follow._id}>
-                        <List
-                          sx={{
-                            width: "100%",
-                            maxWidth: 360,
-                            bgcolor: "background.paper",
-                            alignItems: "center",
-                          }}
-                        >
-                          <ListItem alignItems="center">
-                            <ListItemAvatar>
-                              <Avatar
-                                alt={`${userFf.firstName} ${userFf.lastName}`}
-                                src={userFf.profilePicture}
+                  {userProf.followers.length >= 0 &&
+                    userProf.followers.map((follow) => {
+                      const userFf = userPost.find(
+                        (user1) => follow.user === user1._id
+                      );
+                      return (
+                        <div key={follow._id}>
+                          <List
+                            sx={{
+                              width: "100%",
+                              maxWidth: 360,
+                              bgcolor: "background.paper",
+                              alignItems: "center",
+                            }}
+                          >
+                            <ListItem alignItems="center">
+                              <ListItemAvatar>
+                                <Avatar
+                                  alt={`${userFf.firstName} ${userFf.lastName}`}
+                                  src={userFf.profilePicture}
+                                />
+                              </ListItemAvatar>
+                              <ListItemText
+                                primary={`${userFf.firstName} ${userFf.lastName}`}
                               />
-                            </ListItemAvatar>
-                            <ListItemText primary={`${userFf.firstName} ${userFf.lastName}`} />
-                          </ListItem>
-                        </List>
-                        <Divider />
-                      </div>
-                    );
-                  })}
+                            </ListItem>
+                          </List>
+                          <Divider />
+                        </div>
+                      );
+                    })}
                 </Menu>
               </React.Fragment>
               <React.Fragment>
@@ -344,34 +353,37 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
                   transformOrigin={{ horizontal: "right", vertical: "top" }}
                   anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                 >
-                  {userProf.following.length>=0&&  userProf.following.map((follow1) => {
-                    const userF = userPost.find(
-                      (user1) => follow1.user === user1._id
-                    );
-                    return (
-                      <div key={follow1._id}>
-                        <List
-                          sx={{
-                            width: "100%",
-                            maxWidth: 360,
-                            bgcolor: "background.paper",
-                            alignItems: "center",
-                          }}
-                        >
-                          <ListItem alignItems="center">
-                            <ListItemAvatar>
-                              <Avatar
-                                alt={`${userF.firstName} ${userF.lastName}`}
-                                src={userF.profilePicture}
+                  {userProf.following.length >= 0 &&
+                    userProf.following.map((follow1) => {
+                      const userF = userPost.find(
+                        (user1) => follow1.user === user1._id
+                      );
+                      return (
+                        <div key={follow1._id}>
+                          <List
+                            sx={{
+                              width: "100%",
+                              maxWidth: 360,
+                              bgcolor: "background.paper",
+                              alignItems: "center",
+                            }}
+                          >
+                            <ListItem alignItems="center">
+                              <ListItemAvatar>
+                                <Avatar
+                                  alt={`${userF.firstName} ${userF.lastName}`}
+                                  src={userF.profilePicture}
+                                />
+                              </ListItemAvatar>
+                              <ListItemText
+                                primary={`${userF.firstName} ${userF.lastName}`}
                               />
-                            </ListItemAvatar>
-                            <ListItemText primary={`${userF.firstName} ${userF.lastName}`} />
-                          </ListItem>
-                        </List>
-                        <Divider />
-                      </div>
-                    );
-                  })}
+                            </ListItem>
+                          </List>
+                          <Divider />
+                        </div>
+                      );
+                    })}
                 </Menu>
               </React.Fragment>
             </div>
