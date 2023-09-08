@@ -14,24 +14,20 @@ function App() {
   const darkMode = localStorage.getItem("darkMode");
   const [userId, setUserId] = useState(localStorage.getItem("userId"));
   const [token, setToken] = useState(localStorage.getItem("token"));
-  //console.log(token);
   const [articles, setArticles] = useState([]);
   const [homeProf, setHomeProf] = useState(JSON.parse(homeProf1));
   const [user, setUser] = useState(JSON.parse(userD));
   const [darkM, setDarkM] = useState(JSON.parse(darkMode));
-  //console.log(user._id);
 
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
 
   const getArticlesByAuthor = async () => {
-    setArticles([]);
     await axios
       .get(`http://localhost:5000/articles/search_1?author=${userId}`)
       .then((res) => {
         const rever = res.data.articles;
-        //console.log(res.data);
         setArticles([...rever].reverse());
       })
       .catch((error) => {

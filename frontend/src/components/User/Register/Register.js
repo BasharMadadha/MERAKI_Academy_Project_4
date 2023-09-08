@@ -125,7 +125,7 @@ const Register = ({ setRegister ,setToggel}) => {
           }
         />
       </FormControl>
-      <p>
+      <p style={{ color: "black" }}>
         By creating an account you agree to our{" "}
         <Link to="#">Terms & Privacy.</Link>
       </p>

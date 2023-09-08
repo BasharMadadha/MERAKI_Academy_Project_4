@@ -24,11 +24,6 @@ const Login = () => {
     event.preventDefault();
   };
 
-  // const responseGoogle = (response) => {
-  //   console.log(response); // This contains user information including the access token
-  //   // You can fetch user details using the response.accessToken
-  // };
-
   return (
     <div>
       <FormControl sx={{ m: 1, width: "52ch" }} variant="filled">
@@ -73,7 +68,7 @@ const Login = () => {
         />
       </FormControl>
       <br />
-      <p>
+      <p style={{ color: "black" }}>
         By creating an account you agree to our{" "}
         <Link to="#">Terms & Privacy.</Link>
       </p>

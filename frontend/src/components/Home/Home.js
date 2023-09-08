@@ -20,7 +20,6 @@ const Home = () => {
     await axios
       .get(`http://localhost:5000/users/${userId}`)
       .then((res) => {
-        //console.log(res.data);
         setUserProf(res.data.user);
       })
       .catch((error) => {
@@ -32,7 +31,6 @@ const Home = () => {
     await axios
       .post(`http://localhost:5000/users/follow/${id}`, true, config)
       .then((res) => {
-        console.log(res);
         homeProf ? getUserById() : getArticles();
       })
       .catch((error) => {
@@ -44,14 +42,12 @@ const Home = () => {
     await axios
       .delete(`http://localhost:5000/users/follow/${id}`, config)
       .then((res) => {
-        console.log(res);
         homeProf ? getUserById() : getArticles();
       })
       .catch((error) => {
         console.log(error);
       });
   };
-
 
   return (
     <div className="Home" >
@@ -60,7 +56,7 @@ const Home = () => {
         <LeftBar />
         <div className="mid">
           <AddPost />
-          <Posts userProf={userProf}/>
+          <Posts/>
         </div>
         <RightBar unFollow1={unFollow} follow1={follow} />
       </div>

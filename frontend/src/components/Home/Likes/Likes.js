@@ -13,10 +13,10 @@ import ListItemText from "@mui/material/ListItemText";
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
 
-const Likes = ({ article }) => {
+const Likes = ({ article, userPost }) => {
   const { token, getArticlesByAuthor, homeProf, getArticles, user } =
     useContext(userData);
-  //console.log(userId);
+
   const [toggel, setToggel] = useState(false);
 
   const config = {
@@ -78,14 +78,14 @@ const Likes = ({ article }) => {
           }}
         >
           <Avatar
-            key={article.likes[0]._id}
-            alt={article.likes[0].userName}
-            src={article.likes[0].userPic}
+            key={userPost[0]._id}
+            alt={`${userPost[0].firstName} ${userPost[0].lastName}`}
+            src={userPost[0].profilePicture}
           />
           <Avatar
-            key={article.likes[1]._id}
-            alt={article.likes[1].userName}
-            src={article.likes[1].userPic}
+            key={userPost[1]._id}
+            alt={`${userPost[1].firstName} ${userPost[1].lastName}`}
+            src={userPost[1].profilePicture}
           />
         </AvatarGroup>
       )}
@@ -101,13 +101,20 @@ const Likes = ({ article }) => {
         <Box className="box" sx={{ flexGrow: 1, maxWidth: 752 }}>
           <List>
             {article.likes.map((like) => {
+              const userLikeu = userPost.find(
+                (user1) => like.user._id === user1._id
+              );
               return (
-                <ListItem key={like._id}>
-                  <ListItemAvatar>
-                    <Avatar src={like.userPic} />
-                  </ListItemAvatar>
-                  <ListItemText primary={like.userName} />
-                </ListItem>
+                userLikeu._id === like.user._id && (
+                  <ListItem key={like._id}>
+                    <ListItemAvatar>
+                      <Avatar src={userLikeu.profilePicture} />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={`${userLikeu.firstName} ${userLikeu.lastName}`}
+                    />
+                  </ListItem>
+                )
               );
             })}
           </List>

@@ -3,8 +3,6 @@ import * as React from "react";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
-import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -39,8 +37,8 @@ const NavBar = ({ getUserById, getUserById1 }) => {
   } = useContext(userData);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-
   const [userNav, setUserNav] = useState();
+
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
@@ -127,14 +125,13 @@ const NavBar = ({ getUserById, getUserById1 }) => {
             }}
           />
         )}
-        <GridViewOutlinedIcon />
+
         <div className="search">
           <SearchOutlinedIcon style={{ color: "black" }} />
           <input type="text" placeholder="Search..." />
         </div>
       </div>
       <div className="right">
-        <EmailOutlinedIcon />
         <div onClick={() => {}}>
           <Badge badgeContent={userNav.notifications.length} color="error">
             <React.Fragment>
@@ -223,7 +220,7 @@ const NavBar = ({ getUserById, getUserById1 }) => {
             localStorage.setItem("homeProf1", JSON.stringify(true));
             setUserId(user._id);
             localStorage.setItem("userId", user._id);
-            homeProf ? getUserById() : getUserById1();
+             homeProf ? getUserById() : getUserById1();
             getArticlesByAuthor();
             navigate("/Profile");
           }}

@@ -5,7 +5,7 @@ import { useContext } from "react";
 import "./Comment.css";
 import Swal from "sweetalert2";
 
-const Comment = ({ article }) => {
+const Comment = ({ article,userPost }) => {
   const { token, user, getArticlesByAuthor, homeProf ,getArticles,darkM} = useContext(userData);
 
   const config = {
@@ -50,13 +50,16 @@ const Comment = ({ article }) => {
   return (
     <div>
       {article.comments.map((comment) => {
-        return (
+        const userComment = userPost.find(
+          (user1) => comment.commenter === user1._id
+        );
+        return (userComment._id === comment.commenter&&
           <div key={comment._id} className={darkM ? "comment-dark" : "comment"}>
             <div className="userInfoP">
-              <img src={user.profilePicture} alt="" />
+              <img src={userComment.profilePicture} alt="" />
               <div className="detailsC">
                 <Link style={{ textDecoration: "none", color: "inherit" }}>
-                  <span className="nameC">{`${user.firstName} ${user.lastName}`}</span>
+                  <span className="nameC">{`${userComment.firstName} ${userComment.lastName}`}</span>
                 </Link>
                 <span className="dateC">1 min ago</span>
               </div>
@@ -67,7 +70,6 @@ const Comment = ({ article }) => {
       })}
       <button className="Btnx" onClick={handleComment}>
         <div className="signx">+</div>
-
         <div className="textx">Create</div>
       </button>
     </div>

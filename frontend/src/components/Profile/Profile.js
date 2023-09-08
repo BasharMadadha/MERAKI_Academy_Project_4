@@ -21,7 +21,6 @@ const Profile = () => {
     await axios
       .get(`http://localhost:5000/users/${userId}`)
       .then((res) => {
-        //console.log(res.data);
         setUserProf(res.data.user);
       })
       .catch((error) => {
@@ -59,10 +58,10 @@ const Profile = () => {
       <NavBar getUserById={getUserById}/>
       <div style={{ display: "flex" }}>
         <LeftBar />
-        <div className="midP">
+        <div className="midP" style={{ flex: 6 }}>
           <ProfileU getUserById={getUserById} userProf={userProf} follow={follow} unFollow={unFollow}/>
         </div>
-        <RightBar follow={follow} unFollow={unFollow}/>
+        <RightBar follow={follow} unFollow={unFollow} getUserById={getUserById}/>
       </div>
     </div>
   );

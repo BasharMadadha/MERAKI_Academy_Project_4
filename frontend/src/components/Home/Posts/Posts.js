@@ -15,24 +15,28 @@ import Swal from "sweetalert2";
 import React, { useState, useContext, useEffect } from "react";
 import Likes from "../Likes/Likes";
 
-const Posts = ({ getUserById, userProf }) => {
+const Posts = ({ getUserById }) => {
   const options = ["Delete", "Update"];
   const [articlesId, setArticlesId] = useState("");
   const [commentUP, setCommentUP] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [userPost, setUserPost] = useState([]);
 
   const {
+    token,
     user,
     getArticlesByAuthor,
     homeProf,
     articles,
-    userId,
     setUserId,
     setHomeProf,
     getArticles,
     darkM,
   } = useContext(userData);
-  //console.log(user);
+
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -43,8 +47,14 @@ const Posts = ({ getUserById, userProf }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+ 
   useEffect(() => {
+    getUsers()
+      .then(() => setLoading(false))
+      .catch((error) => {
+        console.error("Error fetching user profile:", error);
+        setLoading(false);
+      });
     homeProf
       ? getArticlesByAuthor()
           .then(() => setLoading(false))
@@ -84,6 +94,17 @@ const Posts = ({ getUserById, userProf }) => {
       });
   };
 
+  const getUsers = async () => {
+    await axios
+      .get(`http://localhost:5000/users/`, config)
+      .then((res) => {
+        setUserPost(res.data.users);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   if (loading) {
     return (
       <Backdrop
@@ -99,132 +120,133 @@ const Posts = ({ getUserById, userProf }) => {
     <div className="post">
       <div className="containerP">
         {articles.map((article) => {
+          const userPp = userPost.find((user2) => article.author === user2._id);
           return (
-            <div key={article._id} className={darkM ? "postA-dark" : "postA"}>
-              <div className="userP">
-                <Link
-                  to="/Profile"
-                  onClick={() => {
-                    setHomeProf(true);
-                    setUserId(article.author);
-                    localStorage.setItem("userId", article.author);
-                    localStorage.setItem("homeProf1", JSON.stringify(true));
-                    getUserById();
-                    getArticlesByAuthor();
-                  }}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  <div className="userInfoP">
-                    <img src={article.authorPic} alt="" />
-                    <div className="details">
-                      <span className="name">{article.userName}</span>
-                      <span className="date">1 min ago</span>
+            userPp._id === article.author && (
+              <div key={article._id} className={darkM ? "postA-dark" : "postA"}>
+                <div className="userP">
+                  <Link
+                    to="/Profile"
+                    onClick={() => {
+                      setHomeProf(true);
+                      setUserId(article.author);
+                      localStorage.setItem("userId", article.author);
+                      localStorage.setItem("homeProf1", JSON.stringify(true));
+                      getUserById();
+                      getArticlesByAuthor();
+                    }}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <div className="userInfoP">
+                      <img src={userPp.profilePicture} alt="" />
+                      <div className="details">
+                        <span className="name">{`${userPp.firstName} ${userPp.lastName}`}</span>
+                        <span className="date">1 min ago</span>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              </div>
-              <div className="content">
-                <p>{article.description}</p>
-                <img
-                  src={article.pic}
-                  alt=""
-                  style={{ borderRadius: "10px" }}
-                />
-              </div>
-              <div className="itemP">
-                <Likes article={article} />
-                <TextsmsOutlinedIcon
-                  onClick={() => {
-                    setCommentUP((show) => !show);
-                    setArticlesId(article._id);
-                  }}
-                />
-                {article.comments.length} Comments
-                <ShareOutlinedIcon />
-                Share
-              </div>
-              {commentUP && article._id === articlesId && (
-                <Comment article={article} getArticles={getArticles} />
-              )}
-
-              {(homeProf ? user._id === userProf._id : true) &&
-                userId === article.author && (
-                  <div className="menuP">
-                    <IconButton
-                      aria-label="more"
-                      id="long-button"
-                      aria-controls={open ? "long-menu" : undefined}
-                      aria-expanded={open ? "true" : undefined}
-                      aria-haspopup="true"
-                      onClick={(event) => {
-                        handleClick(event);
-                        setArticlesId(article._id);
-                      }}
-                    >
-                      <MoreVertIcon style={{ color: "gray" }} />
-                    </IconButton>
-                    {article._id === articlesId && (
-                      <Menu
-                        id="long-menu"
-                        MenuListProps={{
-                          "aria-labelledby": "long-button",
-                        }}
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClick={handleClose}
-                      >
-                        {options.map((option) => (
-                          <MenuItem
-                            key={option}
-                            selected={option === "Pyxis"}
-                            onClick={() => {
-                              if (option === "Delete") {
-                                <>
-                                  {Swal.fire({
-                                    title: "Are you sure?",
-                                    text: "You won't be able to revert this!",
-                                    icon: "warning",
-                                    showCancelButton: true,
-                                    confirmButtonColor: "#d33",
-                                    cancelButtonColor: "#3085d6",
-                                    confirmButtonText: "Yes, delete it!",
-                                  }).then((result) => {
-                                    if (result.isConfirmed) {
-                                      DeleteArticle(article._id);
-                                      Swal.fire(
-                                        "Deleted!",
-                                        "Your file has been deleted.",
-                                        "success"
-                                      );
-                                    }
-                                  })}
-                                </>;
-                              } else if (option === "Update") {
-                                (() => {
-                                  Swal.fire({
-                                    input: "textarea",
-                                    inputLabel: ` What's on your mind ${user.firstName} ...`,
-                                    inputPlaceholder:
-                                      "Type in your mind here...",
-                                    inputAttributes: {
-                                      "aria-label": "Type your message here",
-                                    },
-                                    showCancelButton: true,
-                                  }).then((result) => {
-                                    UpdateArticle(article._id, result.value);
-                                  });
-                                })();
-                              }
-                            }}
-                          >
-                            {option}
-                          </MenuItem>
-                        ))}
-                      </Menu>
-                    )}
-                  </div>
+                  </Link>
+                </div>
+                <div className="content">
+                  <p>{article.description}</p>
+                  <img
+                    src={article.pic}
+                    alt=""
+                    style={{ borderRadius: "10px" }}
+                  />
+                </div>
+                <div className="itemP">
+                  <Likes article={article} userPost={userPost}/>
+                  <TextsmsOutlinedIcon
+                    onClick={() => {
+                      setCommentUP((show) => !show);
+                      setArticlesId(article._id);
+                    }}
+                  />
+                  {article.comments.length} Comments
+                  <ShareOutlinedIcon />
+                  Share
+                </div>
+                {commentUP && article._id === articlesId && (
+                  <Comment article={article} userPost={userPost}/>
                 )}
-            </div>
+                {user._id === article.author && (
+                    <div className="menuP">
+                      <IconButton
+                        aria-label="more"
+                        id="long-button"
+                        aria-controls={open ? "long-menu" : undefined}
+                        aria-expanded={open ? "true" : undefined}
+                        aria-haspopup="true"
+                        onClick={(event) => {
+                          handleClick(event);
+                          setArticlesId(article._id);
+                        }}
+                      >
+                        <MoreVertIcon style={{ color: "gray" }} />
+                      </IconButton>
+                      {article._id === articlesId && (
+                        <Menu
+                          id="long-menu"
+                          MenuListProps={{
+                            "aria-labelledby": "long-button",
+                          }}
+                          anchorEl={anchorEl}
+                          open={open}
+                          onClick={handleClose}
+                        >
+                          {options.map((option) => (
+                            <MenuItem
+                              key={option}
+                              selected={option === "Pyxis"}
+                              onClick={() => {
+                                if (option === "Delete") {
+                                  <>
+                                    {Swal.fire({
+                                      title: "Are you sure?",
+                                      text: "You won't be able to revert this!",
+                                      icon: "warning",
+                                      showCancelButton: true,
+                                      confirmButtonColor: "#d33",
+                                      cancelButtonColor: "#3085d6",
+                                      confirmButtonText: "Yes, delete it!",
+                                    }).then((result) => {
+                                      if (result.isConfirmed) {
+                                        DeleteArticle(article._id);
+                                        Swal.fire(
+                                          "Deleted!",
+                                          "Your file has been deleted.",
+                                          "success"
+                                        );
+                                      }
+                                    })}
+                                  </>;
+                                } else if (option === "Update") {
+                                  (() => {
+                                    Swal.fire({
+                                      input: "textarea",
+                                      inputLabel: ` What's on your mind ${user.firstName} ...`,
+                                      inputPlaceholder:
+                                        "Type in your mind here...",
+                                      inputAttributes: {
+                                        "aria-label": "Type your message here",
+                                      },
+                                      showCancelButton: true,
+                                    }).then((result) => {
+                                      UpdateArticle(article._id, result.value);
+                                    });
+                                  })();
+                                }
+                              }}
+                            >
+                              {option}
+                            </MenuItem>
+                          ))}
+                        </Menu>
+                      )}
+                    </div>
+                  )}
+              </div>
+            )
           );
         })}
       </div>

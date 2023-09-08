@@ -23,10 +23,21 @@ import Swal from "sweetalert2";
 import Posts from "../../Home/Posts/Posts";
 
 const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
-  const { user ,darkM} = useContext(userData);
+  const { user ,darkM ,token} = useContext(userData);
   const [loading, setLoading] = useState(true);
+  const [userPost, setUserPost] = useState([]);
+
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
 
   useEffect(() => {
+    getUsers()
+    .then(() => setLoading(false))
+      .catch((error) => {
+        console.error("Error fetching user profile:", error);
+        setLoading(false);
+      });
     getUserById()
       .then(() => setLoading(false))
       .catch((error) => {
@@ -124,6 +135,17 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
         }, 1800);
       })
       .catch((error) => {});
+  };
+
+  const getUsers = async () => {
+    await axios
+      .get(`http://localhost:5000/users/`, config)
+      .then((res) => {
+        setUserPost(res.data.users);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   
   if (loading) {
@@ -263,6 +285,9 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
                   anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                 >
                   {userProf.followers.length>=0&&  userProf.followers.map((follow) => {
+                    const userFf = userPost.find(
+                      (user1) => follow.user === user1._id
+                    );
                     return (
                       <div key={follow._id}>
                         <List
@@ -273,14 +298,14 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
                             alignItems: "center",
                           }}
                         >
-                          <ListItem alignItems="flex-start">
+                          <ListItem alignItems="center">
                             <ListItemAvatar>
                               <Avatar
-                                alt={follow.userName}
-                                src={follow.userPic}
+                                alt={`${userFf.firstName} ${userFf.lastName}`}
+                                src={userFf.profilePicture}
                               />
                             </ListItemAvatar>
-                            <ListItemText primary={follow.userName} />
+                            <ListItemText primary={`${userFf.firstName} ${userFf.lastName}`} />
                           </ListItem>
                         </List>
                         <Divider />
@@ -320,6 +345,9 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
                   anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                 >
                   {userProf.following.length>=0&&  userProf.following.map((follow1) => {
+                    const userF = userPost.find(
+                      (user1) => follow1.user === user1._id
+                    );
                     return (
                       <div key={follow1._id}>
                         <List
@@ -333,11 +361,11 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
                           <ListItem alignItems="center">
                             <ListItemAvatar>
                               <Avatar
-                                alt={follow1.userName}
-                                src={follow1.userPic}
+                                alt={`${userF.firstName} ${userF.lastName}`}
+                                src={userF.profilePicture}
                               />
                             </ListItemAvatar>
-                            <ListItemText primary={follow1.userName} />
+                            <ListItemText primary={`${userF.firstName} ${userF.lastName}`} />
                           </ListItem>
                         </List>
                         <Divider />
@@ -350,7 +378,7 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
           </div>
         </div>
       </div>
-      <Posts getUserById={getUserById} userProf={userProf} />
+      <Posts getUserById={getUserById} />
     </div>
   );
 };

@@ -5,15 +5,17 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
-const RightBar = ({ unFollow, follow, unFollow1, follow1 }) => {
+const RightBar = ({ unFollow, follow, unFollow1, follow1, getUserById }) => {
   const [users, setUsers] = useState([]);
   const [show, setShow] = useState(false);
   const [followId, setfollowId] = useState("");
+  const [loading, setLoading] = useState(true);
   const {
     token,
     getArticlesByAuthor,
-    getUserById,
     setUserId,
     setHomeProf,
     homeProf,
@@ -26,7 +28,12 @@ const RightBar = ({ unFollow, follow, unFollow1, follow1 }) => {
   };
 
   useEffect(() => {
-    getUsers();
+    getUsers()
+      .then(() => setLoading(false))
+      .catch((error) => {
+        console.error("Error fetching user profile:", error);
+        setLoading(false);
+      });
   }, []);
 
   const getUsers = async () => {
@@ -40,21 +47,33 @@ const RightBar = ({ unFollow, follow, unFollow1, follow1 }) => {
       });
   };
 
+  if (loading) {
+    return (
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    );
+  }
+  const userR = users.find((user1) => user1._id === user._id);
+
   // Shuffling the users array
-  // const shuffledUsers = [...users];
-  // for (let i = shuffledUsers.length - 1; i > 0; i--) {
-  //   const j = Math.floor(Math.random() * (i + 1));
-  //   [shuffledUsers[i], shuffledUsers[j]] = [shuffledUsers[j], shuffledUsers[i]];
-  // }
+  const shuffledUsers = [...users];
+  for (let i = shuffledUsers.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledUsers[i], shuffledUsers[j]] = [shuffledUsers[j], shuffledUsers[i]];
+  }
 
   return (
     <div className={darkM ? "rightBar-dark" : "rightBar"}>
       <div className="containerR">
         <div className={darkM ? "itemR-dark" : "itemR"}>
           <span>Suggestions For You</span>
-          {users.map((user1) => {
-            const userFollow = user1.followers.find(
-              (follow) => follow.user._id !== user._id
+          {shuffledUsers.map((user1) => {
+            const userFollow = userR.following.find(
+              (follow) => follow.user === user1._id
             );
             return (
               user1._id !== user._id &&
@@ -120,6 +139,7 @@ const RightBar = ({ unFollow, follow, unFollow1, follow1 }) => {
               followersU &&
               followingU && (
                 <Link
+                  key={user1._id}
                   to="/Profile"
                   onClick={() => {
                     if (homeProf) {
@@ -135,7 +155,7 @@ const RightBar = ({ unFollow, follow, unFollow1, follow1 }) => {
                   }}
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
-                  <div key={user1._id} className="userR">
+                  <div className="userR">
                     <div className="userInfo">
                       <img src={user1.profilePicture} alt="" />
                       <div className="online" />
