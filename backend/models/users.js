@@ -42,6 +42,8 @@ const userSchema = new mongoose.Schema({
       user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
       userName: { type: String },
       userPic: { type: String },
+      stat: { type: String },
+      mess: { type: String },
     },
   ],
 });

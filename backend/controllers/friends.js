@@ -29,6 +29,8 @@ const follow = async (req, res) => {
       user: userId,
       userName: userName,
       userPic: userPic,
+      stat : "Follow you",
+      mess : "— You've got a new follower. Keep up the great work!"
     });
     userToFollow.followers.push({
       user: userId,
