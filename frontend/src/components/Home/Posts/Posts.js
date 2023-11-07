@@ -75,7 +75,7 @@ const Posts = ({ getUserById }) => {
 
   const DeleteArticle = async (id) => {
     await axios
-      .delete(`http://localhost:5000/articles/${id}`)
+      .delete(`${process.env.DB_URI}/articles/${id}`)
       .then((res) => {
         homeProf ? getArticlesByAuthor() : getArticles();
       })
@@ -86,7 +86,7 @@ const Posts = ({ getUserById }) => {
 
   const UpdateArticle = async (id, description) => {
     await axios
-      .put(`http://localhost:5000/articles/${id}`, {
+      .put(`${process.env.DB_URI}/articles/${id}`, {
         description,
       })
       .then((res) => {
@@ -99,7 +99,7 @@ const Posts = ({ getUserById }) => {
 
   const getUsers = async () => {
     await axios
-      .get(`http://localhost:5000/users/`, config)
+      .get(`${process.env.DB_URI}/users/`, config)
       .then((res) => {
         setUserPost(res.data.users);
       })

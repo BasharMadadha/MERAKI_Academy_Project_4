@@ -134,7 +134,7 @@ const Register = ({ setRegister ,setToggel}) => {
         className="btnC"
         onClick={() => {
           axios
-            .post("http://localhost:5000/users/register", { ...userData })
+            .post(`${process.env.DB_URI}/users/register`, { ...userData })
             .then((result) => {
               setMessage(result.data.message);
               setRegister(false);

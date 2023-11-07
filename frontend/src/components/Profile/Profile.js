@@ -19,7 +19,7 @@ const Profile = () => {
 
   const getUserById = async () => {
     await axios
-      .get(`http://localhost:5000/users/${userId}`)
+      .get(`${process.env.DB_URI}/users/${userId}`)
       .then((res) => {
         setUserProf(res.data.user);
       })
@@ -30,7 +30,7 @@ const Profile = () => {
 
   const follow = async (id) => {
     await axios
-      .post(`http://localhost:5000/users/follow/${id}`, true, config)
+      .post(`${process.env.DB_URI}/users/follow/${id}`, true, config)
       .then((res) => {
         homeProf ? getUserById() : getArticles();
       })
@@ -41,7 +41,7 @@ const Profile = () => {
 
   const unFollow = async (id) => {
     await axios
-      .delete(`http://localhost:5000/users/follow/${id}`, config)
+      .delete(`${process.env.DB_URI}/users/follow/${id}`, config)
       .then((res) => {
         homeProf ? getUserById() : getArticles();
       })

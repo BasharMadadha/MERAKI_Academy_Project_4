@@ -101,7 +101,7 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
 
   const UpdateUserP = async (id, profilePicture) => {
     await axios
-      .put(`http://localhost:5000/users/${id}`, {
+      .put(`${process.env.DB_URI}/users/${id}`, {
         profilePicture,
       })
       .then((res) => {
@@ -121,7 +121,7 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
 
   const UpdateUserC = async (id, profileCover) => {
     await axios
-      .put(`http://localhost:5000/users/${id}`, {
+      .put(`${process.env.DB_URI}/users/${id}`, {
         profileCover,
       })
       .then((res) => {
@@ -141,7 +141,7 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
 
   const getUsers = async () => {
     await axios
-      .get(`http://localhost:5000/users/`, config)
+      .get(`${process.env.DB_URI}/users/`, config)
       .then((res) => {
         setUserPost(res.data.users);
       })
@@ -308,12 +308,12 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
                             <ListItem alignItems="center">
                               <ListItemAvatar>
                                 <Avatar
-                                  alt={`${userFf.firstName} ${userFf.lastName}`}
-                                  src={userFf.profilePicture}
+                                  alt={`${userFf?.firstName} ${userFf?.lastName}`}
+                                  src={userFf?.profilePicture}
                                 />
                               </ListItemAvatar>
                               <ListItemText
-                                primary={`${userFf.firstName} ${userFf.lastName}`}
+                                primary={`${userFf?.firstName} ${userFf?.lastName}`}
                               />
                             </ListItem>
                           </List>
@@ -371,12 +371,12 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
                             <ListItem alignItems="center">
                               <ListItemAvatar>
                                 <Avatar
-                                  alt={`${userF.firstName} ${userF.lastName}`}
-                                  src={userF.profilePicture}
+                                  alt={`${userF?.firstName} ${userF?.lastName}`}
+                                  src={userF?.profilePicture}
                                 />
                               </ListItemAvatar>
                               <ListItemText
-                                primary={`${userF.firstName} ${userF.lastName}`}
+                                primary={`${userF?.firstName} ${userF?.lastName}`}
                               />
                             </ListItem>
                           </List>

@@ -25,7 +25,7 @@ function App() {
 
   const getArticlesByAuthor = async () => {
     await axios
-      .get(`http://localhost:5000/articles/search_1?author=${userId}`)
+      .get(`${process.env.DB_URI}/articles/search_1?author=${userId}`)
       .then((res) => {
         const rever = res.data.articles;
         setArticles([...rever].reverse());
@@ -37,7 +37,7 @@ function App() {
 
   const getArticles = async () => {
     await axios
-      .get(`http://localhost:5000/articles/`, config)
+      .get(`${process.env.DB_URI}/articles/`, config)
       .then((res) => {
         const rever = res.data.articles;
         setArticles([...rever].reverse());

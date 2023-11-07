@@ -77,7 +77,7 @@ const Login = () => {
         className="btnC"
         onClick={async () => {
           await axios
-            .post("http://localhost:5000/users/login", {
+            .post(`${process.env.DB_URI}/users/login`, {
               email,
               password,
             })

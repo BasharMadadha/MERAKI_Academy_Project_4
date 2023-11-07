@@ -15,7 +15,7 @@ const Comment = ({ article,userPost }) => {
   const createComment = async (id, comment) => {
     await axios
       .post(
-        `http://localhost:5000/articles/${id}/comments/`,
+        `${process.env.DB_URI}/articles/${id}/comments/`,
         { comment },
         config
       )

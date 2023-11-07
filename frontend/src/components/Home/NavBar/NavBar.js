@@ -63,7 +63,7 @@ const NavBar = ({ getUserById, getUserById1 }) => {
 
   const getUserById2 = async (id) => {
     await axios
-      .get(`http://localhost:5000/users/${id}`)
+      .get(`${process.env.DB_URI}/users/${id}`)
       .then((res) => {
         setUserNav(res.data.user);
       })
@@ -74,7 +74,7 @@ const NavBar = ({ getUserById, getUserById1 }) => {
 
   const deleteNoti = async (id) => {
     await axios
-      .delete(`http://localhost:5000/users/notifications/${id}`, config)
+      .delete(`${process.env.DB_URI}/users/notifications/${id}`, config)
       .then((res) => {
         console.log(res);
         getUserById2(user._id);

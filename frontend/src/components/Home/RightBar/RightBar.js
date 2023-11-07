@@ -38,7 +38,7 @@ const RightBar = ({ unFollow, follow, unFollow1, follow1, getUserById }) => {
 
   const getUsers = async () => {
     await axios
-      .get(`http://localhost:5000/users/`, config)
+      .get(`${process.env.DB_URI}/users/`, config)
       .then((res) => {
         setUsers(res.data.users);
       })
