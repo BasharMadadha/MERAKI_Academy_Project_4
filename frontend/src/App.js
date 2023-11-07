@@ -5,7 +5,6 @@ import User from "./components/User/User";
 import Home from "./components/Home/Home";
 import Profile from "./components/Profile/Profile";
 import axios from "axios";
-
 export const userData = createContext();
 
 function App() {
@@ -25,7 +24,7 @@ function App() {
 
   const getArticlesByAuthor = async () => {
     await axios
-      .get(`${process.env.DB_URI}/articles/search_1?author=${userId}`)
+      .get(`${process.env.REACT_APP_DB_URI}/articles/search_1?author=${userId}`)
       .then((res) => {
         const rever = res.data.articles;
         setArticles([...rever].reverse());
@@ -37,7 +36,7 @@ function App() {
 
   const getArticles = async () => {
     await axios
-      .get(`${process.env.DB_URI}/articles/`, config)
+      .get(`${process.env.REACT_APP_DB_URI}/articles/`, config)
       .then((res) => {
         const rever = res.data.articles;
         setArticles([...rever].reverse());
@@ -49,7 +48,7 @@ function App() {
   };
 
   return (
-    <div className={darkM ?"dark" : "light"}>
+    <div className={darkM ? "dark" : "light"}>
       <userData.Provider
         value={{
           token,

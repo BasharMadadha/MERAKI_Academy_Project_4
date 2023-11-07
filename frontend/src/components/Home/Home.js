@@ -18,7 +18,7 @@ const Home = () => {
 
   const getUserById = async () => {
     await axios
-      .get(`${process.env.DB_URI}/users/${userId}`)
+      .get(`${process.env.REACT_APP_DB_URI}/users/${userId}`)
       .then((res) => {
         setUserProf(res.data.user);
       })
@@ -29,7 +29,7 @@ const Home = () => {
 
   const follow = async (id) => {
     await axios
-      .post(`${process.env.DB_URI}/users/follow/${id}`, true, config)
+      .post(`${process.env.REACT_APP_DB_URI}/users/follow/${id}`, true, config)
       .then((res) => {
         homeProf ? getUserById() : getArticles();
       })
@@ -40,7 +40,7 @@ const Home = () => {
 
   const unFollow = async (id) => {
     await axios
-      .delete(`${process.env.DB_URI}/users/follow/${id}`, config)
+      .delete(`${process.env.REACT_APP_DB_URI}/users/follow/${id}`, config)
       .then((res) => {
         homeProf ? getUserById() : getArticles();
       })

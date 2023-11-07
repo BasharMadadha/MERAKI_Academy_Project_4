@@ -25,7 +25,7 @@ const Likes = ({ article, userPost }) => {
 
   const addLike = async (id) => {
     await axios
-      .post(`${process.env.DB_URI}/articles/like/${id}`, true, config)
+      .post(`${process.env.REACT_APP_DB_URI}/articles/like/${id}`, true, config)
       .then((res) => {
         homeProf ? getArticlesByAuthor() : getArticles();
       })
@@ -36,7 +36,7 @@ const Likes = ({ article, userPost }) => {
 
   const DeleteLike = async (id) => {
     await axios
-      .delete(`${process.env.DB_URI}/articles/like/${id}`, config)
+      .delete(`${process.env.REACT_APP_DB_URI}/articles/like/${id}`, config)
       .then((res) => {
         homeProf ? getArticlesByAuthor() : getArticles();
       })

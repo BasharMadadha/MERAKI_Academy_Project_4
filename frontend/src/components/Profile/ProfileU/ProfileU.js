@@ -101,7 +101,7 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
 
   const UpdateUserP = async (id, profilePicture) => {
     await axios
-      .put(`${process.env.DB_URI}/users/${id}`, {
+      .put(`${process.env.REACT_APP_DB_URI}/users/${id}`, {
         profilePicture,
       })
       .then((res) => {
@@ -121,7 +121,7 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
 
   const UpdateUserC = async (id, profileCover) => {
     await axios
-      .put(`${process.env.DB_URI}/users/${id}`, {
+      .put(`${process.env.REACT_APP_DB_URI}/users/${id}`, {
         profileCover,
       })
       .then((res) => {
@@ -141,7 +141,7 @@ const ProfileU = ({ userProf, getUserById, unFollow, follow }) => {
 
   const getUsers = async () => {
     await axios
-      .get(`${process.env.DB_URI}/users/`, config)
+      .get(`${process.env.REACT_APP_DB_URI}/users/`, config)
       .then((res) => {
         setUserPost(res.data.users);
       })

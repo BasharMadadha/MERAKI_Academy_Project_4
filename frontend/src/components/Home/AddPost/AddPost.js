@@ -90,7 +90,7 @@ const AddPost = () => {
             onClick={() => {
               axios
                 .post(
-                  `${process.env.DB_URI}/articles/`,
+                  `${process.env.REACT_APP_DB_URI}/articles/`,
                   {
                     description,
                     pic,

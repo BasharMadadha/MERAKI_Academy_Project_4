@@ -75,7 +75,7 @@ const Posts = ({ getUserById }) => {
 
   const DeleteArticle = async (id) => {
     await axios
-      .delete(`${process.env.DB_URI}/articles/${id}`)
+      .delete(`${process.env.REACT_APP_DB_URI}/articles/${id}`)
       .then((res) => {
         homeProf ? getArticlesByAuthor() : getArticles();
       })
@@ -86,7 +86,7 @@ const Posts = ({ getUserById }) => {
 
   const UpdateArticle = async (id, description) => {
     await axios
-      .put(`${process.env.DB_URI}/articles/${id}`, {
+      .put(`${process.env.REACT_APP_DB_URI}/articles/${id}`, {
         description,
       })
       .then((res) => {
@@ -99,7 +99,7 @@ const Posts = ({ getUserById }) => {
 
   const getUsers = async () => {
     await axios
-      .get(`${process.env.DB_URI}/users/`, config)
+      .get(`${process.env.REACT_APP_DB_URI}/users/`, config)
       .then((res) => {
         setUserPost(res.data.users);
       })
@@ -123,9 +123,9 @@ const Posts = ({ getUserById }) => {
     <div className="post">
       <div className="containerP">
         {articles.map((article) => {
-          const userPp = userPost.find((user2) => article.author === user2._id);
+          const userPp = userPost?.find((user2) => article.author === user2._id);
           return (
-            userPp._id === article.author && (
+            userPp?._id === article.author && (
               <div key={article._id} className={darkM ? "postA-dark" : "postA"}>
                 <div className="userP">
                   <Link

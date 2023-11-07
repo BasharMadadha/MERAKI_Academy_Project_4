@@ -15,7 +15,7 @@ const Comment = ({ article,userPost }) => {
   const createComment = async (id, comment) => {
     await axios
       .post(
-        `${process.env.DB_URI}/articles/${id}/comments/`,
+        `${process.env.REACT_APP_DB_URI}/articles/${id}/comments/`,
         { comment },
         config
       )

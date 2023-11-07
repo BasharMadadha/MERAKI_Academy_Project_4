@@ -77,7 +77,7 @@ const Login = () => {
         className="btnC"
         onClick={async () => {
           await axios
-            .post(`${process.env.DB_URI}/users/login`, {
+            .post(`${process.env.REACT_APP_DB_URI}/users/login`, {
               email,
               password,
             })
@@ -90,7 +90,7 @@ const Login = () => {
               navigate("/Home");
             })
             .catch((error) => {
-              setMessage(error.response.data.message);
+              setMessage(error.response?.data.message);
             });
         }}
       >

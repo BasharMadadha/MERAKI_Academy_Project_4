@@ -134,7 +134,7 @@ const Register = ({ setRegister ,setToggel}) => {
         className="btnC"
         onClick={() => {
           axios
-            .post(`${process.env.DB_URI}/users/register`, { ...userData })
+            .post(`${process.env.REACT_APP_DB_URI}/users/register`, { ...userData })
             .then((result) => {
               setMessage(result.data.message);
               setRegister(false);
@@ -148,6 +148,7 @@ const Register = ({ setRegister ,setToggel}) => {
         Continue
       </button>
       <br />
+      <h1>{process.env.REACT_APP_DEV_MODE}</h1>
       <h2 style={{ color: "#e57373" }}>{message}</h2>
     </div>
   );
