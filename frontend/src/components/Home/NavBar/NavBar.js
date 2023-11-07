@@ -99,7 +99,7 @@ const NavBar = ({ getUserById, getUserById1 }) => {
     <div className={darkM ? "navbar-dark" : "navbar"}>
       <div className="left">
         <Link to="#" style={{ textDecoration: "none" }}>
-          <span className={darkM ? "logo-dark" : "logo"}>Logo</span>
+          <span className={darkM ? "logo-dark" : "logo"}>Bashar M.</span>
         </Link>
         <Link
           to="/Home"
