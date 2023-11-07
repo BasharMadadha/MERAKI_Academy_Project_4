@@ -81,10 +81,10 @@ const login = (req, res) => {
           authorPic: result.profilePicture,
         };
 
-        const options = {
-          expiresIn: "60m",
-        };
-        const token = jwt.sign(payload, process.env.SECRET, options);
+        // const options = {
+        //   expiresIn: "60m",
+        // };
+        const token = jwt.sign(payload, process.env.SECRET /*options*/);
         res.status(200).json({
           success: true,
           message: `Valid login credentials`,
@@ -135,7 +135,7 @@ const getAllUsers = (req, res) => {
 
 const getUserById = async (req, res) => {
   let id = req.params.id;
- await usersModel
+  await usersModel
     .findById(id)
     .then((user) => {
       if (!user) {
